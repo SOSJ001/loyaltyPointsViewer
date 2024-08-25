@@ -56,9 +56,9 @@
 
 <div class="flex h-screen w-screen items-center justify-center p-10">
 	<div
-		class="flex h-4/5 w-[500px] flex-col items-center justify-center gap-5 rounded-lg bg-gray-500 bg-opacity-5 p-10 shadow-lg"
+		class="flex h-4/5 w-[500px] flex-col items-center justify-center gap-5 rounded-lg bg-gray-500 bg-opacity-5 p-3 md:p-10 shadow-lg"
 	>
-		<div class="flex flex-col items-center justify-center space-y-2">
+		<div class="flex flex-col items-center justify-center space-y-2 text-center ">
 			<h1 class="text-3xl">Create an account</h1>
 			<small
 				>Already have an account? <a class="font-bold underline" href="/Log-in">Log in</a></small
