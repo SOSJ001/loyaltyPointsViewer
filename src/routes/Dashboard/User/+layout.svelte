@@ -1,5 +1,13 @@
 <script>
 	import UserSideBar from '$lib/components/userSideNav.svelte';
+	import { Drawer } from 'flowbite-svelte';
+	import { sineIn } from 'svelte/easing';
+	let hiddenDrawer = true; // for the hambuger menu
+	let transitionParamsRight = {
+		x: 320,
+		duration: 200,
+		easing: sineIn
+	};
 </script>
 
 <div class="grid h-screen grid-cols-12 md:gap-10 overflow-hidden">
@@ -36,11 +44,36 @@
 				<span>User Avater🎈</span>
 				</div>
 			</div>
-			<div class="md:hidden text-end text-4xl" title="menu">📚</div>
+			<button
+				on:click={() => (hiddenDrawer = false)}
+				class="text-end text-4xl md:hidden"
+				title="menu">📚</button
+			>
 		</div>
 		<!--  buttom main content  -->
 		<div class="row-span-11 overflow-x-auto">
 			<slot></slot>
 		</div>
 	</div>
+	<!-- hambuger menu below -->
+	<Drawer
+		class="p-0"
+		placement="right"
+		transitionType="fly"
+		transitionParams={transitionParamsRight}
+		bind:hidden={hiddenDrawer}
+		activateClickOutside={true}
+		id="sidebar6"
+	>
+		<!-- <SideBar/> -->
+		<div class=" h-full w-full bg-gradient-to-br from-slate-900 via-slate-900 to-violet-900 p-3">
+			<div class="h-full w-full rounded-lg bg-gray-500 bg-opacity-5 p-3">
+				<div class="absolute top-6 right-7 flex w-full items-center justify-end">
+					<button on:click={() => (hiddenDrawer = true)} class="text-end text-md">❌</button>
+				</div>
+				<UserSideBar />
+			</div>
+			
+		</div>
+	</Drawer>
 </div>
