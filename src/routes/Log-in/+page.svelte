@@ -11,7 +11,7 @@
 	<div
 		class="flex h-4/5 w-[500px] flex-col items-center justify-center gap-5 rounded-lg bg-gray-500 bg-opacity-5 p-3 md:p-10 shadow-lg"
 	>
-		<div class="flex flex-col items-center justify-center space-y-2">
+		<div class="text-center flex flex-col items-center justify-center space-y-2">
 			<h1 class="text-3xl">Log in</h1>
 			<small
 				>New to loyalty point viewer? <a class="font-bold underline" href="/">Create an account</a
