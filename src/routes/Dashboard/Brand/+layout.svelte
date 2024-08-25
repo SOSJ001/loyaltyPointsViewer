@@ -69,7 +69,7 @@
 		id="sidebar6"
 	>
 		<!-- <SideBar/> -->
-		<div class=" h-full w-full bg-gradient-to-br from-slate-900 via-slate-900 to-violet-900 p-3">
+		<button on:click|stopPropagation={() => (hiddenDrawer = true)} class=" h-full w-full bg-gradient-to-br from-slate-900 via-slate-900 to-violet-900 p-3">
 			<div class="h-full w-full rounded-lg bg-gray-500 bg-opacity-5 p-3">
 				<div class="absolute top-6 right-7 flex w-full items-center justify-end">
 					<button on:click={() => (hiddenDrawer = true)} class="text-end text-md">❌</button>
@@ -77,6 +77,6 @@
 				<SideBar/>
 			</div>
 			
-		</div>
+		</button>
 	</Drawer>
 </div>
