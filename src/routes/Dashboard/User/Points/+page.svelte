@@ -48,7 +48,7 @@
 			{
 				name: 'CPC',
 				data: [6456, 6356, 6526, 6332, 6418, 6500],
-				color: color
+				color: '#f2ff00'
 			}
 		],
 		legend: {
