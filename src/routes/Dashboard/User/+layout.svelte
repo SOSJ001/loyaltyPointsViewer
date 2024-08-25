@@ -14,9 +14,9 @@
 		<!-- main content is split into top and buttom  -->
 
 		<!-- top main content aka header  -->
-		<div class="row-span-1 grid w-full grid-cols-3 items-baseline justify-between pb-3 ">
+		<div class="row-span-1 flex gap-5 md:gap-0 md:grid w-full md:grid-cols-3 items-baseline justify-between pb-3">
 			<div class="text-nowrap hidden md:block">Hello there 👋</div>
-			<div class="text-nowrap md:hidden">Hello 👋</div>
+			<div class="text-nowrap md:hidden flex"><span>Hello</span> <span>👋</span></div>
 			<!-- search field below  -->
 			<div class="flex w-full flex-row items-center justify-center border-b">
 				<div class=" w-full">
