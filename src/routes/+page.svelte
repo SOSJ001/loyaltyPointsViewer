@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ActionButton from '$lib/components/ActionButton.svelte';
+	import { goto } from '$app/navigation';
 	import Spinner from '$lib/components/spinner.svelte';
 	import { createAccount, getClientSession } from '$lib/supabase/store';
 	let userType: string = 'User'; //variable to keep track of radio button
@@ -7,22 +8,22 @@
 	let password: string;
 	let confirmPasword: string;
 	let spinner = false;
-	let errorMessage: string;
-	let error = false;
+	let error1Message: string;
+	let error1 = false;
 	let onInputFunction = () => {
-		error = false;
+		error1 = false;
 		spinner = false;
 	};
 	// check password match function below
 	function checkPassword(password: string, confirmPasword: string) {
 		let success = false;
 		if (password !== confirmPasword) {
-			error = true;
-			errorMessage = 'Password does not match';
+			error1 = true;
+			error1Message = 'Password does not match';
 			return success;
 		} else if (password.length <= 6) {
-			error = true;
-			errorMessage = `Password must be greater than six characters \n you entered ${password.length} characters`;
+			error1 = true;
+			error1Message = `Password must be greater than six characters \n you entered ${password.length} characters`;
 			return success;
 		} else {
 			success = true;
@@ -33,23 +34,28 @@
 	let createAccountFunction = async () => {
 		//check if fields are not empty function below
 		if (!email || !password || !confirmPasword) {
-			error = true;
-			errorMessage = 'Please complete all fields';
+			error1 = true;
+			error1Message = 'Please complete all fields';
 			return;
 		}
 		const SUCCESS = checkPassword(password, confirmPasword);
 		if (SUCCESS) {
 			spinner = true; //show the spinner
 			 const{data, error} = await createAccount(email, password, userType);
-			 if(data !== null){
-				alert("sign up done ✔")
+			 if(error!== null){
+				// if there is error1 
+				error1 = true;
+				error1Message = error.message
 				spinner = false
+			 }else if(data.session !== null){
+				// if creating account is a success
+				error1 = false 
+				spinner = false
+				const RESPONSE = await getClientSession() //get the local session
+				goto(`/Dashboard/${RESPONSE.data.session?.user.user_metadata.role}`)
 			 }
-			 if(error){
-				alert(error.message)
-			 }
-			const RESPONSE = await getClientSession()
-			console.log("getting session", RESPONSE)
+			
+			
 
 		}
 	};
@@ -66,9 +72,9 @@
 			>
 		</div>
 		<form class="flex w-full flex-col items-center justify-center gap-5">
-			<!-- error popup here  -->
-			{#if error}
-				<div class="text-center text-red-500">{errorMessage}</div>
+			<!-- error1 popup here  -->
+			{#if error1}
+				<div class="text-center text-red-500">{error1Message}</div>
 			{/if}
 			<!-- radio button below -->
 			<div class="flex w-full flex-row items-center justify-center gap-10">
