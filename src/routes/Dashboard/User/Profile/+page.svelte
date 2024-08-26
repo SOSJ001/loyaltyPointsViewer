@@ -13,7 +13,7 @@
 </script>
 
 <div class="grid h-full grid-rows-12 space-y-1 rounded-lg bg-gray-500 bg-opacity-5 px-5 py-3">
-	<div class="row-span-1 flex justify-between">
+	<div class="row-span-1 flex justify-between items-center">
 		<span class="text-sm md:text-2xl">⚙ Profile</span>
 		<button
 			on:click={() => {
@@ -28,8 +28,8 @@
 			>
 				<svelte:fragment slot="text">
 					  <span class="text-sm md:text-lg">
-						<span class="border-transparent PX-3" contenteditable bind:innerHTML={toggleMode}></span>
-						Edit mode✌
+						🖌 <span class="border-transparent PX-3" contenteditable bind:innerHTML={toggleMode}></span>
+						Edit mode
 					</span>
 				</svelte:fragment>
 			</ActionButton>
@@ -95,7 +95,7 @@
 		</div>
 		<!-- descripton contacts and socials and buttons here -->
 		<div class="flex flex-col justify-center items-center md:flex-row h-full w-full gap-4 pb-2">
-			<div class="grid w-full grid-rows-6 space-y-1">
+			<div class="grid w-full grid-rows-6 space-y-1 h-full">
 				<!-- description here -->
 				<label for="description">Short Description </label>
 				<textarea
@@ -107,7 +107,7 @@
 				/>
 			</div>
 			<!-- contacts and socials -->
-			<div class="flex w-full flex-col gap-4">
+			<div class="flex w-full h-full flex-col gap-4">
 				<div class="space-y-1">
 					<label for="socials">Socials</label>
 					<input

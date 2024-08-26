@@ -87,7 +87,7 @@
 	};
 </script>
 
-<div class="h-full rounded-lg bg-gray-500 bg-opacity-5 px-5 py-3 grid grid-rows-12 space-y-1">
+<div class="h-full rounded-lg bg-gray-500 bg-opacity-5 px-3 py-3 grid grid-rows-12 space-y-1">
 	<div class="flex justify-between row-span-1">
 		<span class="text-sm md:text-2xl">⚒ Points</span>
             <!-- <button>

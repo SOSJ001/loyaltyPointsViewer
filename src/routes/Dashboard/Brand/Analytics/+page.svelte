@@ -87,9 +87,9 @@
 	};
 </script>
 
-<div class="h-full rounded-lg bg-gray-500 bg-opacity-5 px-5 py-3 grid grid-rows-12 space-y-1">
+<div class="h-full rounded-lg bg-gray-500 bg-opacity-5 px-3 py-3 grid grid-rows-12 space-y-1">
 	<div class="flex justify-between row-span-1">
-		<span class="text-2xl">🎢 Analytics</span>
+		<span class="text-sm md:text-2xl">🎢 Analytics</span>
             <!-- <button>
                 <ActionButton bgColor="gray-400" hoverBgColor="gray-400" hoverTextColor="gray-700 hover:font-bold">
                     <svelte:fragment slot="text">

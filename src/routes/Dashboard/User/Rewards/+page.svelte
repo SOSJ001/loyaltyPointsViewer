@@ -6,8 +6,8 @@
 	let color: any;
 </script>
 
-<div class="flex h-full flex-col rounded-lg bg-gray-500 bg-opacity-5 px-5 py-3">
-	<div class="flex flex-row justify-between">
+<div class="flex h-full flex-col rounded-lg bg-gray-500 bg-opacity-5 px-3 py-3">
+	<div class="flex flex-row justify-between items-center">
 		<span class="text-sm md:text-2xl">🏆 Reward List</span>
 		<button on:click={() => (formModal = true)}>
 			<ActionButton
@@ -16,7 +16,7 @@
 				hoverTextColor="gray-700 hover:font-bold"
 			>
 				<svelte:fragment slot="text">
-					View <span class="hidden md:inline">Reward</span> History <span class="text-lg">✌</span>
+					<span class="text-lg">👀</span> View <span class="hidden md:inline">Reward</span> History 
 				</svelte:fragment>
 			</ActionButton>
 		</button>
@@ -39,7 +39,7 @@
 						<div>Super Advert</div>
 						<div class="text-green-400">Active</div>
 						<div>0 Total</div>
-						<div class=" flex space-x-5">
+						<div class=" flex flex-col md:flex-row md:gap-x-5 items-start">
 							<button class="rounded p-1 hover:bg-yellow-400 hover:bg-opacity-50">Claim</button>
 							<button class="rounded p-1 hover:bg-green-500 hover:bg-opacity-50">Details</button>
 						</div>

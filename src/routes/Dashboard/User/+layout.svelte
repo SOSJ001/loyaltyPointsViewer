@@ -17,12 +17,14 @@
 	</div>
 	<!-- main content area below  -->
 	<div
-		class="col-span-12 md:col-span-9 space-y-3 grid h-screen w-full grid-rows-12 overflow-hidden bg-opacity-5 py-5 p-5 md:pr-10"
+		class="col-span-12 md:col-span-9 space-y-3 grid h-screen w-full grid-rows-12 overflow-hidden bg-opacity-5 py-3 px-3 md:px-0 md:pr-10"
 	>
 		<!-- main content is split into top and buttom  -->
 
 		<!-- top main content aka header  -->
-		<div class="row-span-1 flex gap-5 md:gap-0 md:grid w-full md:grid-cols-3 items-baseline justify-between pb-3">
+		<div
+			class="row-span-1 flex w-full items-center justify-between gap-5 md:grid md:grid-cols-3 md:gap-0"
+		>
 			<div class="text-nowrap hidden md:block">Hello there 👋</div>
 			<div class="text-nowrap md:hidden flex"><span>Hello</span> <span>👋</span></div>
 			<!-- search field below  -->
@@ -46,7 +48,7 @@
 			</div>
 			<button
 				on:click={() => (hiddenDrawer = false)}
-				class="text-end text-4xl md:hidden"
+				class="text-end text-4xl md:hidden bg-gray-700 bg-opacity-25 rounded p-1"
 				title="menu">📚</button
 			>
 		</div>
