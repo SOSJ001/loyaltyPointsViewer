@@ -13,7 +13,12 @@ export async function createAccount(email: string, password: string, role:string
 		password: password,
 		options: {
 			data: {
-				role: role
+				role: role,
+				brandName_Or_fullName: '',
+				userName: '',
+				contact: '',
+				shortDescription: '',
+				socials: ''
 			}
 		}
 	});

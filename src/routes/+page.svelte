@@ -2,7 +2,7 @@
 	import ActionButton from '$lib/components/ActionButton.svelte';
 	import Spinner from '$lib/components/spinner.svelte';
 	import { createAccount, getClientSession } from '$lib/supabase/store';
-	let userType: string = 'user'; //variable to keep track of radio button
+	let userType: string = 'User'; //variable to keep track of radio button
 	let email: string;
 	let password: string;
 	let confirmPasword: string;
@@ -44,8 +44,9 @@
 			 if(data !== null){
 				alert("sign up done ✔")
 				spinner = false
-			 }else{
-				alert(" error sign up ✖")
+			 }
+			 if(error){
+				alert(error.message)
 			 }
 			const RESPONSE = await getClientSession()
 			console.log("getting session", RESPONSE)
@@ -72,11 +73,11 @@
 			<!-- radio button below -->
 			<div class="flex w-full flex-row items-center justify-center gap-10">
 				<div>
-					<input id="user" type="radio" name="userType" value="user" bind:group={userType} />
+					<input id="user" type="radio" name="userType" value="User" bind:group={userType} />
 					<label for="user">For user</label>
 				</div>
 				<div>
-					<input id="brand" type="radio" name="userType" value="brand" bind:group={userType} />
+					<input id="brand" type="radio" name="userType" value="Brand" bind:group={userType} />
 					<label for="brand">For brand</label>
 				</div>
 				<!-- radio button ends  -->
