@@ -119,7 +119,7 @@
 				<div class="grid grid-cols-4 items-center border-b px-2 py-3 capitalize hover:bg-gray-600">
 					<div class="">{data.abbreviation}</div>
 					<div class="text-green-400">Active</div>
-					<div class="">{i} Total</div>
+					<div class="">0 Total</div>
 					<div class=" flex flex-col items-start md:flex-row md:items-start md:space-x-5">
 						<button on:click={()=>{
 							editModal = true;
