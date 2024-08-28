@@ -3,6 +3,8 @@
 	import { getClientSession } from '$lib/supabase/store';
 	import { Chart } from 'flowbite-svelte';
     import RecentlyClaimed from "$lib/components/recentlyClaimed.svelte"
+import { getServerSession } from '$lib/supabase/store.js';
+
 	const options = {
 		series: [
 			{

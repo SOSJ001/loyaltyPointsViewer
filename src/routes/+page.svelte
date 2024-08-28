@@ -48,10 +48,20 @@
 				error1Message = error.message
 				spinner = false
 			 }else if(data.session !== null){
-				// if creating account is a success
+					// if creating account is a success
 				error1 = false 
 				spinner = false
 				const RESPONSE = await getClientSession() //get the local session
+				const USER_ID = RESPONSE.data.session?.user.id
+				const USER_ROLE = RESPONSE.data.session?.user.user_metadata.role
+				// setting the cookie
+				const response = await fetch('/setCookie', {
+			method: 'POST',
+			body: JSON.stringify({USER_ID, USER_ROLE}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})				
 				goto(`/Dashboard/${RESPONSE.data.session?.user.user_metadata.role}`)
 			 }
 			

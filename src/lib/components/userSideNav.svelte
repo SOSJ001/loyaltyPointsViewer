@@ -1,12 +1,30 @@
 <script>
+	import { goto } from '$app/navigation';
+	import { logOut } from '$lib/supabase/store';
 	import NavButton from './NavButton.svelte';
 	let routes = [
 		{ icon: '👀', name: 'Overview', url: '/Dashboard/User' },
 		{ icon: '🏆', name: 'Rewards', url: '/Dashboard/User/Rewards' },
 		{ icon: '⚒', name: 'Points', url: '/Dashboard/User/Points' },
-		{ icon: '⚙', name: 'Profile', url: '/Dashboard/User/Profile' },
-		{ icon: '❔', name: 'Logout', url: '/' }
+		{ icon: '⚙', name: 'Profile', url: '/Dashboard/User/Profile' }
 	];
+	let logOutAction = async () => {
+		const LOGOUT_RESP = await logOut();
+		if (LOGOUT_RESP === null) {
+			// if the logout is a success unset the cookie
+			const UNSET_COOKIE = await fetch('/unSetCookie', {
+				method: 'POST',
+				body: JSON.stringify({}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			if(UNSET_COOKIE){
+				goto('/Log-in');
+			}
+			
+		}
+	};
 </script>
 
 <div class="flex h-full flex-col items-center justify-start">
@@ -24,6 +42,17 @@
 					</NavButton>
 				</div>
 			{/each}
+			<div class="flex w-full items-center justify-start gap-1 rounded-lg border border-gray-300 px-5 py-3.5 shadow-inner hover:bg-gray-600 hover:font-bold hover:text-gray-300">
+				<button class="w-full" on:click|stopPropagation={logOutAction}>
+					
+						<div class="flex w-full justify-between text-nowrap leading-tight">
+							<span>❔</span>
+							<span>Logout</span>
+							<span>⚓</span>
+						</div>
+					
+				</button>
+			</div>
 		</div>
 		<div class="w-full flex justify-center items-center">
 			<div class="w-4/5 bg-gray-400 h-[200px] rounded-lg text-violet-900 font-bold flex flex-col justify-center items-center">
