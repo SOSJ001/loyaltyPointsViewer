@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { Modal } from 'flowbite-svelte';
 	import ActionButton from '$lib/components/ActionButton.svelte';
-	import { deleteRewards, insert_Into_Rewards } from '$lib/supabase/store';
+	import { deleteRewards, insert_Into_Rewards, updateRewards } from '$lib/supabase/store';
 	export let data;
 
 	let rewards: any = data.brand_reward_response.data; // get the reward data from the data prop
-	console.log(rewards)
+	// console.log(rewards)
 	let brandId: string = '6caf40e2-65cf-49c1-8a42-9454e4ca688d';
 	let rewardName: string;
 	let abbreviation: string;
@@ -14,6 +14,8 @@
 	let color: string;
 	let formModal = false; //to open the form modal
 	let editModal = false; // to open the edit modal
+	let arrayindex:number //to keep track of the reward array
+	let rowId:any //id of the row to be edited
 	let insertResponse: any;
 	// insert into reward function
 	let insert_into_reward_function = async () => {
@@ -27,7 +29,38 @@
 		);
 		formModal = false; //close the modal
 		if (error === null) {
+			alert('Successfully Listed');
 			// if the error = null do this in here
+			rewards = [data[0], ...rewards]; //add the data to the array
+			// reset the data
+			brandId = '';
+			rewardName = '';
+			abbreviation = '';
+			description = '';
+			termsAndCondition = '';
+			color = '';
+			console.log(data[0]);
+		} else {
+			console.log(error);
+		}
+	};
+
+	//update reward function
+	let update_reward_function = async () => {
+		const { data, error } = await updateRewards(
+			rowId,
+			rewardName,
+			abbreviation,
+			description,
+			termsAndCondition,
+			color
+		);
+		
+		if (error === null) {
+			editModal = false; //close the modal
+			alert('Successfully Updated');
+			// if the error = null do this in here
+			rewards.splice(arrayindex, 1);
 			rewards = [data[0], ...rewards]; //add the data to the array
 			// reset the data
 			brandId = '';
@@ -46,7 +79,15 @@
 <div class="flex h-full flex-col rounded-lg bg-gray-500 bg-opacity-5 px-3 py-3">
 	<div class="flex flex-row items-center justify-between">
 		<span class="text-sm md:text-2xl">🏆 Reward List</span>
-		<button on:click={() => (formModal = true)}>
+		<button on:click={() => {
+			// reset all fields 
+			// brandId = '';
+			rewardName = '';
+			abbreviation = '';
+			description = '';
+			termsAndCondition = '';
+			color = '';
+			formModal = true}}>
 			<ActionButton
 				bgColor="gray-400"
 				hoverBgColor="gray-400"
@@ -76,7 +117,19 @@
 					<div class="text-green-400">Active</div>
 					<div class="">{i} Total</div>
 					<div class=" flex flex-col items-start md:flex-row md:items-start md:space-x-5">
-						<button on:click={()=>{editModal = true}} class="rounded p-1 hover:bg-yellow-400 hover:bg-opacity-50">Edit</button>
+						<button on:click={()=>{
+							editModal = true;
+							arrayindex = i; //set the index of the arrray
+							// set the rest of the variabes below
+							rowId = rewards[i].id
+							rewardName = rewards[i].name
+							abbreviation = rewards[i].abbreviation
+							description = rewards[i].description
+							termsAndCondition = rewards[i].terms_and_condition
+							color = rewards[i].color
+
+
+							}} class="rounded p-1 hover:bg-yellow-400 hover:bg-opacity-50">Edit</button>
 						<button
 							on:click={// on click of the delete button update the array
 							() => {
@@ -233,7 +286,7 @@
 					class="rounded-md border-2 border-gray-300 bg-transparent focus:border-gray-300 focus:ring-gray-300"
 				/>
 			</div>
-			<button on:click={insert_into_reward_function} class="w-full">
+			<button on:click={update_reward_function} class="w-full">
 				<ActionButton
 					width="full"
 					bgColor="purple-600"

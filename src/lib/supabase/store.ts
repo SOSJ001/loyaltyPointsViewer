@@ -81,3 +81,27 @@ export async function deleteRewards(id:number) {
 	const { error } = await supabase.from('rewards').delete().eq('id', id);
 	return error
 }
+
+export async function updateRewards(
+	rowId: string,
+	rewardName: string,
+	abbreviation: string,
+	description: string,
+	termsAndCondition: string,
+	color: string
+) {
+	
+const response = await supabase
+	.from('rewards')
+	.update({
+		name: rewardName,
+		abbreviation: abbreviation,
+		description: description,
+		terms_and_condition: termsAndCondition,
+		color: color
+	})
+	.eq('id', rowId)
+		.select();
+	return response
+          
+}
