@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { Modal } from 'flowbite-svelte';
 	import ActionButton from '$lib/components/ActionButton.svelte';
-	import { deleteRewards, insert_Into_Rewards, updateRewards } from '$lib/supabase/store';
+	import { deleteRewards, getServerSession, insert_Into_Rewards, updateRewards } from '$lib/supabase/store';
 	export let data;
-
 	let rewards: any = data.brand_reward_response.data; // get the reward data from the data prop
 	// console.log(rewards)
-	let brandId: string = '6caf40e2-65cf-49c1-8a42-9454e4ca688d';
+	let brandId: any;
+	getServerSession().then((data)=>{
+		// get the user id from the server and set it
+		brandId = data.user?.id
+	})
 	let rewardName: string;
 	let abbreviation: string;
 	let description: string;
@@ -14,6 +17,7 @@
 	let color: string;
 	let formModal = false; //to open the form modal
 	let editModal = false; // to open the edit modal
+	let detailModal = false // to open the detail modal
 	let arrayindex:number //to keep track of the reward array
 	let rowId:any //id of the row to be edited
 	let insertResponse: any;
@@ -39,8 +43,8 @@
 			description = '';
 			termsAndCondition = '';
 			color = '';
-			console.log(data[0]);
 		} else {
+			alert('Listing Not Successful')
 			console.log(error);
 		}
 	};
@@ -146,7 +150,18 @@
 							}}
 							class="rounded p-1 hover:bg-red-500 hover:bg-opacity-50">Delete</button
 						>
-						<button class="rounded p-1 hover:bg-green-500 hover:bg-opacity-50">Details</button>
+						<button on:click={()=>{
+							detailModal = true;
+							arrayindex = i; //set the index of the arrray
+							// set the rest of the variabes below
+							rewardName = rewards[i].name
+							abbreviation = rewards[i].abbreviation
+							description = rewards[i].description
+							termsAndCondition = rewards[i].terms_and_condition
+							color = rewards[i].color
+
+
+							}} class="rounded p-1 hover:bg-green-500 hover:bg-opacity-50">Details</button>
 					</div>
 				</div>
 			{/each}
@@ -298,6 +313,72 @@
 					</svelte:fragment>
 				</ActionButton>
 			</button>
+		</form>
+	</div>
+</Modal>
+<!--  reward Detailmodal below  -->
+<Modal
+	class="h-full rounded-lg bg-opacity-5 bg-gradient-to-tl from-gray-700 via-slate-600 to-violet-900 text-gray-300"
+	bind:open={detailModal}
+	size="sm"
+	autoclose={false}
+>
+	<div class="h-full w-full">
+		<form class="flex flex-col space-y-3 text-lg" action="#">
+			<h3 class="mb-4 text-xl font-medium">Reward Details</h3>
+			<div class="space-y-2">
+				<label for="name">Reward Name</label>
+				<input
+				disabled
+					bind:value={rewardName}
+					required
+					id="name"
+					type="text"
+					class="w-full rounded-md border-2 border-gray-300 bg-transparent p-2 focus:border-gray-300 focus:ring-gray-300"
+				/>
+			</div>
+			<div class="space-y-2">
+				<label for="name">Reward Abbreviation</label>
+				<input
+				disabled
+					bind:value={abbreviation}
+					required
+					id="name"
+					type="text"
+					class="w-full rounded-md border-2 border-gray-300 bg-transparent p-2 focus:border-gray-300 focus:ring-gray-300"
+				/>
+			</div>
+			<div class="space-y-2">
+				<label for="description">Reward Description</label>
+				<textarea
+				disabled
+					bind:value={description}
+					required
+					id="description"
+					class="w-full rounded-md border-2 border-gray-300 bg-transparent p-2 focus:border-gray-300 focus:ring-gray-300"
+				/>
+			</div>
+			<div class="space-y-2">
+				<label for="terms">Reward Terms and Condition</label>
+				<textarea
+				disabled
+					bind:value={termsAndCondition}
+					required
+					id="terms"
+					class="w-full rounded-md border-2 border-gray-300 bg-transparent p-2 focus:border-gray-300 focus:ring-gray-300"
+				/>
+			</div>
+			<div class="space-y-2" title="Choose color for display on chart">
+				<label for="color" class="text-{color}">Reward color </label>
+				<input
+				disabled
+					bind:value={color}
+					required
+					id="color"
+					type="color"
+					class="rounded-md border-2 border-gray-300 bg-transparent focus:border-gray-300 focus:ring-gray-300"
+				/>
+			</div>
 		</form>
 	</div>
 </Modal>
