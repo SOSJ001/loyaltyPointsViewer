@@ -1,25 +1,34 @@
 <script lang="ts">
 	import { Modal } from 'flowbite-svelte';
 	import ActionButton from '$lib/components/ActionButton.svelte';
-	import { deleteRewards, getServerSession, insert_Into_Rewards, updateRewards } from '$lib/supabase/store';
+	import {
+		deleteRewards,
+		getServerSession,
+		insert_Into_Rewards,
+		insertIntoCode,
+		updateRewards
+	} from '$lib/supabase/store';
+	import { generateRandomChars } from '$lib/generalStore.js';
 	export let data;
 	let rewards: any = data.brand_reward_response.data; // get the reward data from the data prop
 	// console.log(rewards)
 	let brandId: any;
-	getServerSession().then((data)=>{
+	getServerSession().then((data) => {
 		// get the user id from the server and set it
-		brandId = data.user?.id
-	})
+		brandId = data.user?.id;
+	});
+	let rewardId:any 
 	let rewardName: string;
 	let abbreviation: string;
 	let description: string;
 	let termsAndCondition: string;
+	const POINT: number = 5; //each reward has a constant point of 5 FOR NOW
 	let color: string;
 	let formModal = false; //to open the form modal
 	let editModal = false; // to open the edit modal
-	let detailModal = false // to open the detail modal
-	let arrayindex:number //to keep track of the reward array
-	let rowId:any //id of the row to be edited
+	let detailModal = false; // to open the detail modal
+	let arrayindex: number; //to keep track of the reward array
+	let rowId: any; //id of the row to be edited
 	let insertResponse: any;
 	// insert into reward function
 	let insert_into_reward_function = async () => {
@@ -29,7 +38,8 @@
 			abbreviation,
 			description,
 			termsAndCondition,
-			color
+			color,
+			POINT
 		);
 		formModal = false; //close the modal
 		if (error === null) {
@@ -44,7 +54,7 @@
 			termsAndCondition = '';
 			color = '';
 		} else {
-			alert('Listing Not Successful')
+			alert('Listing Not Successful');
 			console.log(error);
 		}
 	};
@@ -59,7 +69,7 @@
 			termsAndCondition,
 			color
 		);
-		
+
 		if (error === null) {
 			editModal = false; //close the modal
 			alert('Successfully Updated');
@@ -83,15 +93,18 @@
 <div class="flex h-full flex-col rounded-lg bg-gray-500 bg-opacity-5 px-3 py-3">
 	<div class="flex flex-row items-center justify-between">
 		<span class="text-sm md:text-2xl">🏆 Reward List</span>
-		<button on:click={() => {
-			// reset all fields 
-			// brandId = '';
-			rewardName = '';
-			abbreviation = '';
-			description = '';
-			termsAndCondition = '';
-			color = '';
-			formModal = true}}>
+		<button
+			on:click={() => {
+				// reset all fields
+				// brandId = '';
+				rewardName = '';
+				abbreviation = '';
+				description = '';
+				termsAndCondition = '';
+				color = '';
+				formModal = true;
+			}}
+		>
 			<ActionButton
 				bgColor="gray-400"
 				hoverBgColor="gray-400"
@@ -121,19 +134,20 @@
 					<div class="text-green-400">Active</div>
 					<div class="">0 Total</div>
 					<div class=" flex flex-col items-start md:flex-row md:items-start md:space-x-5">
-						<button on:click={()=>{
-							editModal = true;
-							arrayindex = i; //set the index of the arrray
-							// set the rest of the variabes below
-							rowId = rewards[i].id
-							rewardName = rewards[i].name
-							abbreviation = rewards[i].abbreviation
-							description = rewards[i].description
-							termsAndCondition = rewards[i].terms_and_condition
-							color = rewards[i].color
-
-
-							}} class="rounded p-1 hover:bg-yellow-400 hover:bg-opacity-50">Edit</button>
+						<button
+							on:click={() => {
+								editModal = true;
+								arrayindex = i; //set the index of the arrray
+								// set the rest of the variabes below
+								rowId = data.id;
+								rewardName = data.name;
+								abbreviation = data.abbreviation;
+								description = data.description;
+								termsAndCondition = data.terms_and_condition;
+								color = data.color;
+							}}
+							class="rounded p-1 hover:bg-yellow-400 hover:bg-opacity-50">Edit</button
+						>
 						<button
 							on:click={// on click of the delete button update the array
 							() => {
@@ -150,18 +164,20 @@
 							}}
 							class="rounded p-1 hover:bg-red-500 hover:bg-opacity-50">Delete</button
 						>
-						<button on:click={()=>{
-							detailModal = true;
-							arrayindex = i; //set the index of the arrray
-							// set the rest of the variabes below
-							rewardName = rewards[i].name
-							abbreviation = rewards[i].abbreviation
-							description = rewards[i].description
-							termsAndCondition = rewards[i].terms_and_condition
-							color = rewards[i].color
-
-
-							}} class="rounded p-1 hover:bg-green-500 hover:bg-opacity-50">Details</button>
+						<button
+							on:click={() => {
+								detailModal = true;
+								arrayindex = i; //set the index of the arrray
+								// set the rest of the variabes below
+								rewardName = data.name;
+								abbreviation = data.abbreviation;
+								description = data.description;
+								termsAndCondition = data.terms_and_condition;
+								color = data.color;
+								rewardId = data.id
+							}}
+							class="rounded p-1 hover:bg-green-500 hover:bg-opacity-50">Details</button
+						>
 					</div>
 				</div>
 			{/each}
@@ -329,7 +345,7 @@
 			<div class="space-y-2">
 				<label for="name">Reward Name</label>
 				<input
-				disabled
+					disabled
 					bind:value={rewardName}
 					required
 					id="name"
@@ -340,7 +356,7 @@
 			<div class="space-y-2">
 				<label for="name">Reward Abbreviation</label>
 				<input
-				disabled
+					disabled
 					bind:value={abbreviation}
 					required
 					id="name"
@@ -351,7 +367,7 @@
 			<div class="space-y-2">
 				<label for="description">Reward Description</label>
 				<textarea
-				disabled
+					disabled
 					bind:value={description}
 					required
 					id="description"
@@ -361,24 +377,53 @@
 			<div class="space-y-2">
 				<label for="terms">Reward Terms and Condition</label>
 				<textarea
-				disabled
+					disabled
 					bind:value={termsAndCondition}
 					required
 					id="terms"
 					class="w-full rounded-md border-2 border-gray-300 bg-transparent p-2 focus:border-gray-300 focus:ring-gray-300"
 				/>
 			</div>
-			<div class="space-y-2" title="Choose color for display on chart">
-				<label for="color" class="text-{color}">Reward color </label>
-				<input
-				disabled
-					bind:value={color}
-					required
-					id="color"
-					type="color"
-					class="rounded-md border-2 border-gray-300 bg-transparent focus:border-gray-300 focus:ring-gray-300"
-				/>
+			<div class="flex flex-row items-center gap-x-10" title="Choose color for display on chart">
+				<div class="space-x-2">
+					<label for="color" class="text-{color}">Reward color: </label>
+					<input
+						disabled
+						bind:value={color}
+						required
+						id="color"
+						type="color"
+						class="rounded-md border-2 border-gray-300 bg-transparent focus:border-gray-300 focus:ring-gray-300"
+					/>
+				</div>
+				<div class="space-x-2">
+					<span>Assigned Point:</span> <span>5</span>
+				</div>
 			</div>
+			<button on:click={()=>{
+				
+				const code = generateRandomChars(4)// generate the claim code here
+				insertIntoCode(rewardId,code).then(({data, error})=>{
+					if(error === null){
+						// on successful Storage of the code 
+						alert(`Code is valid for one use only \n \n Share the claim code below: \n ${data[0].claim_code}`)
+					}else{
+						console.log( "error", error.message)
+					}
+				}) // keep the claim code
+				
+			}} class="w-full">
+				<ActionButton
+					width="full"
+					bgColor="purple-600"
+					hoverBgColor="gray-400"
+					hoverTextColor="gray-700 hover:font-bold"
+				>
+					<svelte:fragment slot="text">
+						Generate Claim Code <span class="text-lg">✅</span>
+					</svelte:fragment>
+				</ActionButton>
+			</button>
 		</form>
 	</div>
 </Modal>

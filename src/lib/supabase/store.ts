@@ -54,7 +54,8 @@ export async function insert_Into_Rewards(
 	abbreviation: string,
 	description: string,
 	termsAndCondition: string,
-	color: string
+	color: string,
+	points: number
 ) {
 	const RESPONSE = await supabase
 		.from('rewards')
@@ -65,21 +66,29 @@ export async function insert_Into_Rewards(
 				abbreviation: abbreviation,
 				description: description,
 				terms_and_condition: termsAndCondition,
-				color: color
+				color: color,
+				points: points
 			}
 		])
 		.select();
-	return RESPONSE
+	return RESPONSE;
 }
-export async function loadRewards(user_id:string) {
-	let response = await supabase.from('rewards').select('*').eq('user_id', user_id);  
+// load rewards for specific brand
+export async function loadRewards(user_id: string) {
+	let response = await supabase.from('rewards').select('*').eq('user_id', user_id);
 	// { data: rewards, error }
-	return response
+	return response;
 }
 
-export async function deleteRewards(id:number) {
+export async function loadRewardsForUser() {
+	let response = await supabase.from('rewards').select('*');
+	// { data: rewards, error }
+	return response;
+}
+
+export async function deleteRewards(id: number) {
 	const { error } = await supabase.from('rewards').delete().eq('id', id);
-	return error
+	return error;
 }
 
 export async function updateRewards(
@@ -90,18 +99,58 @@ export async function updateRewards(
 	termsAndCondition: string,
 	color: string
 ) {
-	
-const response = await supabase
-	.from('rewards')
-	.update({
-		name: rewardName,
-		abbreviation: abbreviation,
-		description: description,
-		terms_and_condition: termsAndCondition,
-		color: color
-	})
-	.eq('id', rowId)
+	const response = await supabase
+		.from('rewards')
+		.update({
+			name: rewardName,
+			abbreviation: abbreviation,
+			description: description,
+			terms_and_condition: termsAndCondition,
+			color: color
+		})
+		.eq('id', rowId)
 		.select();
-	return response
-          
+	return response;
+}
+
+// function to insert the new Reward code to the DB
+export async function insertIntoCode(reward_id: any, code: string) {
+	const response = await supabase
+		.from('code')
+		.insert([{ reward_id: reward_id, claim_code: code }])
+		.select();
+	return response;
+}
+
+export async function verifyCode(reward_id: any, code: string) {
+	// select * from the table where the reward id and the the reward code matches
+	let response = await supabase
+		.from('code')
+		.select('*')
+		.eq('reward_id', reward_id)
+		.eq('claim_code', code)
+		.eq('status', 'pending');
+
+	return response;
+}
+
+export async function updateCode(id: number) {
+	//update the code table where id = code id
+	const response = await supabase.from('code').update({ status: 'claimed' }).eq('id', id).select();
+	return response;
+}
+
+export async function insertIntoUserPoint(user_id: any, brand_id: any, point_balance: number, code_id:number) {
+	const response = await supabase
+		.from('userPoints')
+		.insert([
+			{
+				user_id: user_id,
+				brand_id: brand_id,
+				point_balance: point_balance,
+				code_id: code_id //the id on the code table
+			}
+		])
+		.select();
+	return response;
 }
