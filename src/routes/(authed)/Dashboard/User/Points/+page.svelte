@@ -1,8 +1,15 @@
 <script lang="ts">
-    //@ts-nocheck
+	//@ts-nocheck
 	import { Chart } from 'flowbite-svelte';
-    import ActionButton from "$lib/components/ActionButton.svelte"
-
+	import ActionButton from '$lib/components/ActionButton.svelte';
+	import { getServerSession } from '$lib/supabase/store.js';
+	export let data
+	let userPoint = data.totalPoint //getting the point from the +page.server.ts
+	let user_id: any
+	getServerSession().then((data) => {
+		// get the user id from the server and set it
+		user_id = data.user?.id;
+	});
 	let options = {
 		chart: {
 			height: '100%',
@@ -18,7 +25,7 @@
 		},
 		tooltip: {
 			enabled: true,
-            theme: "dark",
+			theme: 'dark',
 			x: {
 				show: true
 			}
@@ -41,25 +48,20 @@
 		},
 		series: [
 			{
-				name: 'Clicks',
-				data: [6500, 6418, 6456, 6526, 6356, 6456],
+				name: 'Points',
+				data: data.lineChart.points,
 				color: '#1A56DB'
-			},
-			{
-				name: 'CPC',
-				data: [6456, 6356, 6526, 6332, 6418, 6500],
-				color: '#f2ff00'
 			}
 		],
 		legend: {
 			show: true,
-            labels: {
-          colors: "white",
-          useSeriesColors: false,
-      },
+			labels: {
+				colors: 'white',
+				useSeriesColors: false
+			}
 		},
 		xaxis: {
-			categories: ['01 Feb', '02 Feb', '03 Feb', '04 Feb', '05 Feb', '06 Feb', '07 Feb'],
+			categories: data.lineChart.created,
 			labels: {
 				show: true,
 				style: {
@@ -76,27 +78,22 @@
 		},
 		yaxis: {
 			show: true,
-            labels: {
+			labels: {
 				show: true,
 				style: {
 					fontFamily: '',
 					cssClass: 'text-xs font-normal fill-gray-300 '
 				}
-			},
+			}
 		}
 	};
 </script>
 
-<div class="h-full rounded-lg bg-gray-500 bg-opacity-5 px-3 py-3 grid grid-rows-12 space-y-1">
-	<div class="flex justify-between row-span-1">
-		<span class="text-sm md:text-2xl">⚒ Points</span>
-            <!-- <button>
-                <ActionButton bgColor="gray-400" hoverBgColor="gray-400" hoverTextColor="gray-700 hover:font-bold">
-                    <svelte:fragment slot="text">
-                        Change Line colors <span class="text-lg">✌</span>	
-                    </svelte:fragment>
-                </ActionButton>
-            </button> -->
+<div
+	class="grid h-full grid-rows-12 space-y-1 overflow-hidden rounded-lg bg-gray-500 bg-opacity-5 px-3 py-3"
+>
+	<div class="row-span-1 flex justify-between">
+		<span class="text-sm md:text-2xl">⚒ Points: {userPoint} Total Earned</span>
 	</div>
 	<div class="row-span-11">
 		<Chart {options} />

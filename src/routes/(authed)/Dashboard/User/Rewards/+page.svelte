@@ -58,6 +58,8 @@
 						<div class=" flex flex-col items-start md:flex-row md:gap-x-5">
 							<button
 								on:click={() => {
+									code = ''
+									spinner = false
 									claimModal = true;
 									rewardId = data.id;
 									brand_id = data.user_id;
@@ -146,9 +148,13 @@
 								});
 							} else {
 								alert('Invalid Code');
+								spinner = false
+								code = ''
 							}
 						} else {
-							console.log('the error is', error.message);
+							alert('Poor Connection Connection \n Please Retry !')
+							spinner = false
+							code = ""
 						}
 					});
 				}}

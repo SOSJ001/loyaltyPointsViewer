@@ -154,3 +154,16 @@ export async function insertIntoUserPoint(user_id: any, brand_id: any, point_bal
 		.select();
 	return response;
 }
+
+export async function PointFromUserPointTable(user_id: any) {
+	// select all the points for the user 
+let response = await supabase.from('userPoints').select('point_balance').eq('user_id', user_id);
+  return response
+	
+}
+
+// select all from user overView view
+export async function select_userOverviewById(user_id: any) {
+let response = await supabase.from('user_overview_view').select('*').eq('user_id', user_id);
+return response
+}

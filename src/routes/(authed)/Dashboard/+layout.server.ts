@@ -5,4 +5,6 @@ export async function load({ cookies, url }) {
 	if (COOKIE_VARIABLE === undefined || COOKIE_VARIABLE === null) {
         throw redirect(303, `/`);
     } 
+    const user_id = COOKIE_VARIABLE.userId;
+    return { user_id }; //USER ID
 }

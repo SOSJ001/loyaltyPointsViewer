@@ -1,16 +1,17 @@
-<div class="grid grid-cols-3 bg-gray-500 bg-opacity-25 p-2 ">
-    <div>
+<div class="grid grid-cols-2 bg-gray-500 bg-opacity-25 p-2 ">
+    <!-- <div>
         User Name
-    </div>
+    </div> -->
     <div>
-        Reward
+        Reward Name
     </div>
-    <div>Points</div>
+    <div>Points Earned</div>
 </div>
-<div class="grid grid-cols-3 mt-2 overflow-y-auto gap-y-2">
-    <div class="bg-gray-500 bg-opacity-10">
+<slot name="claimData">
+<div class="grid grid-cols-2 mt-2 overflow-y-auto gap-y-2">
+    <!-- <div class="bg-gray-500 bg-opacity-10">
         SOSJ
-    </div>
+    </div> -->
     <div class="bg-gray-500 bg-opacity-10">
         Reward Name
     </div>
@@ -18,6 +19,4 @@
         200
     </div>
 </div>
-<div>
-    total points earned....pending!!
-</div>
+</slot>
