@@ -4,6 +4,7 @@
 	import Spinner from '$lib/components/spinner.svelte';
 	export let data;
 	let history:[] = data.history as []
+	// console.log(history)
 	let spinner = false;
 	let user_id: any;
 	getServerSession().then((data) => {
@@ -103,15 +104,17 @@
 >
 	<div class="h-full w-full">
 		<h3 class="mb-4 text-xl font-medium">Reward History</h3>
-		<div class="grid grid-cols-3 border-b py-5 capitalize text-gray-400">
+		<div class="grid grid-cols-4 border-b py-5 capitalize text-gray-400 md:w-full w-[450px]  gap-5 md:gap-1">
+			<div>Date</div>
 			<div>reward name</div>
 			<div>status</div>
 			<div>Points</div>
 		</div>
 		<!-- table body blow -->
-		<div class="overflow-y-auto">
+		<div class="overflow-y-auto md:w-full w-[450px]">
 			{#each history as row}
-				<div class="grid grid-cols-3 items-center border-b px-2 py-3 capitalize hover:bg-gray-600">
+				<div class="grid grid-cols-4 items-center border-b px-2 py-3 gap-5 md:gap-1 capitalize hover:bg-gray-600">
+					<div>{`${new Date(row.created_at).getDate()}/${new Date(row.created_at).getMonth()}/${new Date(row.created_at).getFullYear()}`}</div>
 					<div>{row.name}</div>
 					<div class="text-green-400">{row.status}</div>
 					<div>{row.point_balance}</div>
