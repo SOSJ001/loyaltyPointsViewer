@@ -16,7 +16,7 @@ export async function load({ cookies }) {
 		totalPoint = totalPoint + point.point_balance;
 	});
 
-	// getting the rewards and the points for bar chart
+	// getting the date and the points for line chart
 	let created: [] = [];
 	let points: [] = [];
 	let lineChart = { created, points };
@@ -44,7 +44,6 @@ export async function load({ cookies }) {
 		const month = dateObject.getMonth(); // Months are 0-based
 		const day = dateObject.getDate();
 		const formattedDate = `${year}-${monthNames[month]}-${day.toString().padStart(2, '0')}`;
-		console.log(formattedDate);
 		created.push(formattedDate);
 		points.push(record.point_balance);
 	});
