@@ -54,10 +54,11 @@
 				const RESPONSE = await getClientSession() //get the local session
 				const USER_ID = RESPONSE.data.session?.user.id
 				const USER_ROLE = RESPONSE.data.session?.user.user_metadata.role
+				const USER_NAME = RESPONSE.data.session?.user.user_metadata.userName
 				// setting the cookie
 				const response = await fetch('/setCookie', {
 			method: 'POST',
-			body: JSON.stringify({USER_ID, USER_ROLE}),
+			body: JSON.stringify({USER_ID, USER_ROLE, USER_NAME}),
 			headers: {
 				'Content-Type': 'application/json'
 			}

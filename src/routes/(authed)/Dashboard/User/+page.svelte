@@ -183,7 +183,7 @@
 </script>
 
 <!-- this is a grid that is divided into 2 left and right col  -->
-<div class="grid h-full grid-cols-12 gap-3 overflow-y-auto">
+<div class="grid h-full grid-cols-12 gap-3 overflow-hidden">
 	<!-- left col below  -->
 	<div class="order-2 col-span-12 flex h-full flex-col gap-3 md:col-span-6">
     <!-- bar chart  -->

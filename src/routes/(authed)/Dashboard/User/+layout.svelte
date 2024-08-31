@@ -2,6 +2,7 @@
 	import UserSideBar from '$lib/components/userSideNav.svelte';
 	import { Drawer } from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
+	export let data
 	let hiddenDrawer = true; // for the hambuger menu
 	let transitionParamsRight = {
 		x: 320,
@@ -40,10 +41,13 @@
 					>🔍</button
 				>
 			</div>
-			<div class="hidden w-full md:block ">
-				<div class="w-full flex justify-end space-x-3">
-					<span>User Name</span>
-				<span>User Avater🎈</span>
+			<div class="hidden w-full md:block">
+				<div class="flex justify-end items-center space-x-3">
+					<span>{data.user_name}</span>
+					<!-- brand logo -->
+					<div title="Avatar/logo" class="py-5 text-xl">
+						<span class="rounded-full bg-gray-300 p-1">👤</span>
+					</div>
 				</div>
 			</div>
 			<button

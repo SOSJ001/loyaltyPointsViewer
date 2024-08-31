@@ -36,11 +36,13 @@
 			// get the user id and user role
 			// set the cookie
 			// goto the appropriate dashboard
+			// console.log(data.session.user.user_metadata.userName)
 			const USER_ID = data.session.user.id;
 			const USER_ROLE = data.session.user.user_metadata.role;
+			const USER_NAME = data.session.user.user_metadata.userName
 			const RESPONSE = await fetch('/setCookie', {
 				method: 'POST',
-				body: JSON.stringify({ USER_ID, USER_ROLE }),
+				body: JSON.stringify({ USER_ID, USER_ROLE, USER_NAME }),
 				headers: {
 					'Content-Type': 'application/json'
 				}

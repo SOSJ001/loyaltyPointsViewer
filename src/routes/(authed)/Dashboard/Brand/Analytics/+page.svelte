@@ -2,6 +2,7 @@
     //@ts-nocheck
 	import { Chart } from 'flowbite-svelte';
     import ActionButton from "$lib/components/ActionButton.svelte"
+	export let data
 	let color = '#7E3AF2'
 	let options = {
 		chart: {
@@ -41,15 +42,10 @@
 		},
 		series: [
 			{
-				name: 'Clicks',
-				data: [6500, 6418, 6456, 6526, 6356, 6456],
+				name: 'Points Claimed',
+				data: data.bar.rewardTotalClaimed,
 				color: '#1A56DB'
 			},
-			{
-				name: 'CPC',
-				data: [6456, 6356, 6526, 6332, 6418, 6500],
-				color: color
-			}
 		],
 		legend: {
 			show: true,
@@ -59,7 +55,7 @@
       },
 		},
 		xaxis: {
-			categories: ['01 Feb', '02 Feb', '03 Feb', '04 Feb', '05 Feb', '06 Feb', '07 Feb'],
+			categories: data.bar.rewardTotalAbb,
 			labels: {
 				show: true,
 				style: {

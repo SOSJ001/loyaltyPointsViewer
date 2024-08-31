@@ -2,7 +2,7 @@
 	import SideBar from '$lib/components/sideBar.svelte';
 	import { Drawer } from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
-
+export let data
 	let hiddenDrawer = true; // for the hambuger menu
 	let transitionParamsRight = {
 		x: 320,
@@ -18,7 +18,7 @@
 	</div>
 	<!-- main content area below  -->
 	<div
-		class="col-span-12 grid h-screen w-full grid-rows-12 space-y-3 overflow-hidden bg-opacity-5 py-3 px-3 md:px-0 md:col-span-9 md:pr-10"
+		class="col-span-12 grid h-screen w-full grid-rows-12 space-y-3 overflow-hidden bg-opacity-5 px-3 py-3 md:col-span-9 md:px-0 md:pr-10"
 	>
 		<!-- main content is split into top and buttom  -->
 
@@ -41,15 +41,19 @@
 					>🔍</button
 				>
 			</div>
+			<!-- brand name and logo  -->
 			<div class="hidden w-full md:block">
-				<div class="flex justify-end space-x-3">
-					<span>Brand Name</span>
-					<span>Brand Logo🎈</span>
+				<div class="flex justify-end items-center space-x-3">
+					<span>{data.user_name}</span>
+					<!-- brand logo -->
+					<div title="Avatar/logo" class="py-5 text-xl">
+						<span class="rounded-full bg-gray-300 p-1">👤</span>
+					</div>
 				</div>
 			</div>
 			<button
 				on:click={() => (hiddenDrawer = false)}
-				class="text-end text-4xl md:hidden bg-gray-700 bg-opacity-25 rounded p-1"
+				class="rounded bg-gray-700 bg-opacity-25 p-1 text-end text-4xl md:hidden"
 				title="menu">📚</button
 			>
 		</div>
@@ -69,14 +73,16 @@
 		id="sidebar6"
 	>
 		<!-- <SideBar/> -->
-		<button on:click|stopPropagation={() => (hiddenDrawer = true)} class=" h-full w-full bg-gradient-to-br from-slate-900 via-slate-900 to-violet-900 p-3">
+		<button
+			on:click|stopPropagation={() => (hiddenDrawer = true)}
+			class=" h-full w-full bg-gradient-to-br from-slate-900 via-slate-900 to-violet-900 p-3"
+		>
 			<div class="h-full w-full rounded-lg bg-gray-500 bg-opacity-5 p-3">
-				<div class="absolute top-6 right-7 flex w-full items-center justify-end">
-					<button on:click={() => (hiddenDrawer = true)} class="text-end text-md">❌</button>
+				<div class="absolute right-7 top-6 flex w-full items-center justify-end">
+					<button on:click={() => (hiddenDrawer = true)} class="text-md text-end">❌</button>
 				</div>
-				<SideBar/>
+				<SideBar />
 			</div>
-			
 		</button>
 	</Drawer>
 </div>

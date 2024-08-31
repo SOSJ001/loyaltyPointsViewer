@@ -1,3 +1,4 @@
+import { generateRandomChars } from '$lib/generalStore';
 import { createClient } from '@supabase/supabase-js';
 
 // Create a single supabase client for interacting with your database
@@ -15,7 +16,7 @@ export async function createAccount(email: string, password: string, role: strin
 			data: {
 				role: role,
 				brandName_Or_fullName: '',
-				userName: '',
+				userName: `user${generateRandomChars(3)}`,
 				contact: '',
 				shortDescription: '',
 				socials: ''
@@ -97,7 +98,7 @@ export async function updateRewards(
 	abbreviation: string,
 	description: string,
 	termsAndCondition: string,
-	color: string,
+	color: string
 ) {
 	const response = await supabase
 		.from('rewards')
@@ -188,7 +189,6 @@ export async function select_brandOverviewById(user_id: any) {
 	return response;
 }
 
-
 //get the claim count
 export async function claimCount(id: string) {
 	let response = await supabase.from('claimcount').select('*').eq('user_id', id);
@@ -199,4 +199,24 @@ export async function claimCount(id: string) {
 export async function rewardsAndTotalClaimed(id: string) {
 	let response = await supabase.from('rewardsandclaimedtotalpoints').select('*').eq('user_id', id);
 	return response;
+}
+
+//update user details
+export async function updateUserDtails(
+	brandName_Or_fullName: string,
+	userName: string,
+	contact: string,
+	shortDescription: string,
+	socials: string
+) {
+	const response = await supabase.auth.updateUser({
+		data: {
+			brandName_Or_fullName: brandName_Or_fullName,
+			userName: userName,
+			contact: contact,
+			shortDescription: shortDescription,
+			socials: socials
+		}
+	});
+	return response
 }
