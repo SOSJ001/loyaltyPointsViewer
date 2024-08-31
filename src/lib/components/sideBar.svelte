@@ -19,10 +19,9 @@
 					'Content-Type': 'application/json'
 				}
 			});
-			if(UNSET_COOKIE){
+			if (UNSET_COOKIE) {
 				goto('/Log-in');
 			}
-			
 		}
 	};
 </script>
@@ -42,25 +41,38 @@
 					</NavButton>
 				</div>
 			{/each}
-			<div class="flex w-full items-center justify-start gap-1 rounded-lg border border-gray-300 px-5 py-3.5 shadow-inner hover:bg-gray-600 hover:font-bold hover:text-gray-300">
+			<!-- logout button  -->
+			<div
+				class="flex w-full items-center justify-start gap-1 rounded-lg border border-gray-300 px-5 py-3.5 shadow-inner hover:bg-gray-600 hover:font-bold hover:text-gray-300"
+			>
 				<button class="w-full" on:click|stopPropagation={logOutAction}>
-					
-						<div class="flex w-full justify-between text-nowrap leading-tight">
+					<div class="flex w-full justify-between text-nowrap leading-tight">
+						<div>
 							<span>❔</span>
 							<span>Logout</span>
-							<span>⚓</span>
 						</div>
-					
+
+						<span>⚓</span>
+					</div>
 				</button>
 			</div>
-			
 		</div>
 		<div class="flex w-full items-center justify-center">
 			<div
 				class="flex h-[200px] w-4/5 flex-col items-center justify-center rounded-lg bg-gray-400 font-bold text-violet-900"
 			>
-				<span class="text-lg capitalize"> made with love </span>
-				<span class="text-5xl"> 💖 </span>
+				<span class="hidden text-lg capitalize md:inline"> made with love </span>
+				<span class="hidden text-5xl md:inline"> 💖 </span>
+				<!-- brand name and logo  -->
+				<div class="w-full md:hidden">
+					<div class="flex flex-col items-center justify-center space-x-3">
+						<slot name="userName"><span>user Name</span></slot>
+						<!-- brand logo -->
+						<div title="Avatar/logo" class="py-5 text-xl">
+							<span class="rounded-full bg-gray-300 p-3 text-5xl">👤</span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

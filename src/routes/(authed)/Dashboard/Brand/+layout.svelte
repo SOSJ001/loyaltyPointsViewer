@@ -81,7 +81,7 @@ export let data
 				<div class="absolute right-7 top-6 flex w-full items-center justify-end">
 					<button on:click={() => (hiddenDrawer = true)} class="text-md text-end">❌</button>
 				</div>
-				<SideBar />
+				<SideBar><span slot="userName">{data.user_name}</span></SideBar>
 			</div>
 		</button>
 	</Drawer>

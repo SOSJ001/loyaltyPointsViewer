@@ -19,10 +19,9 @@
 					'Content-Type': 'application/json'
 				}
 			});
-			if(UNSET_COOKIE){
+			if (UNSET_COOKIE) {
 				goto('/Log-in');
 			}
-			
 		}
 	};
 </script>
@@ -30,7 +29,7 @@
 <div class="flex h-full flex-col items-center justify-start">
 	<!-- side bar title text below  -->
 	<div class="space-x-2 text-2xl font-bold md:my-10"><span>💼</span><span>Dashboard</span></div>
-	<div class="justify-between flex h-full w-full flex-col">
+	<div class="flex h-full w-full flex-col justify-between">
 		<div class="space-y-4">
 			{#each routes as route}
 				<div class="w-full">
@@ -42,28 +41,28 @@
 					</NavButton>
 				</div>
 			{/each}
-			<div class="flex w-full items-center justify-start gap-1 rounded-lg border border-gray-300 px-5 py-3.5 shadow-inner hover:bg-gray-600 hover:font-bold hover:text-gray-300">
+			<div
+				class="flex w-full items-center justify-start gap-1 rounded-lg border border-gray-300 px-5 py-3.5 shadow-inner hover:bg-gray-600 hover:font-bold hover:text-gray-300"
+			>
 				<button class="w-full" on:click|stopPropagation={logOutAction}>
-					
-						<div class="flex w-full justify-between text-nowrap leading-tight">
+					<div class="flex w-full justify-between text-nowrap leading-tight">
+						<div>
 							<span>❔</span>
 							<span>Logout</span>
-							<span>⚓</span>
 						</div>
-					
+
+						<span>⚓</span>
+					</div>
 				</button>
 			</div>
 		</div>
-		<div class="w-full flex justify-center items-center">
-			<div class="w-4/5 bg-gray-400 h-[200px] rounded-lg text-violet-900 font-bold flex flex-col justify-center items-center">
-			<span class="capitalize text-lg">
-				made with love
-			</span>
-			<span class="text-5xl">
-				💖
-			</span>
+		<div class="flex w-full items-center justify-center">
+			<div
+				class="flex h-[200px] w-4/5 flex-col items-center justify-center rounded-lg bg-gray-400 font-bold text-violet-900"
+			>
+				<span class="text-lg capitalize"> made with love </span>
+				<span class="text-5xl"> 💖 </span>
+			</div>
 		</div>
-		</div>
-		
 	</div>
 </div>
