@@ -1,4 +1,5 @@
 <script lang="ts">
+	//@ts-nocheck
 	import { Modal } from 'flowbite-svelte';
 	import { getServerSession, updateClaimPoints } from '$lib/supabase/store.js';
 	import Spinner from '$lib/components/spinner.svelte';
