@@ -1,6 +1,6 @@
 # loyaltyPointsViewer
 ## Getting Started
-This project is A Solution to one of Christex Foundation Engineering Bounty
+This project is A Solution to one of Christex Foundation's Engineering Bounty
 
 ## Prerequisites
 
@@ -9,14 +9,9 @@ This project is A Solution to one of Christex Foundation Engineering Bounty
 ## Installation
 
 1. Clone this repository:
-   git clone [https://github.com/SOSJ001/multiple-token-extension.git](https://github.com/SOSJ001/multiple-token-extension.git)
-2. Navigate to the project directory
-3. Install dependencies: npm install
-   
-## Usage
-1. Request Airdrop
-   Use the airdrop.js script to request an airdrop: "node airdrop.js"
-2. Create Token with Metadata and that is non transferable
-   Use the index.js script to create a new token with custom metadata and non transferable extension: "node index.js"
-3.  Get Token Information
-   Use the "node getToken.js" script to retrieve information about existing tokens
+   git clone [https://github.com/SOSJ001/loyaltyPointsViewer](https://github.com/SOSJ001/loyaltyPointsViewer)
+2. run npm i 
+3. run npm run dev
+
+##Built with sveltekit
+#If u get fetch failed error contact the dev to reboot the project
