@@ -1,3 +1,4 @@
+//@
 import {
 	claimCount,
 	loadRewards,
@@ -19,7 +20,7 @@ export async function load({ cookies }) {
 		loadRewards(COOKIE_VARIABLE.userId),
 		claimCount(COOKIE_VARIABLE.userId),
 		rewardsAndTotalClaimed(COOKIE_VARIABLE.userId),
-		select_brandOverviewById(COOKIE_VARIABLE.userId)
+		select_brandOverviewById(COOKIE_VARIABLE.userId),
 	]);
 
 	//get the top 5 claimed points
@@ -32,7 +33,9 @@ export async function load({ cookies }) {
 	let rewardCount: [] = [];
 	donut = { rewardAbb, rewardCount };
 	top5?.forEach((reward) => {
+		//@ts-ignore
 		rewardAbb.push(reward.abbreviation);
+		//@ts-ignore
 		rewardCount.push(reward.claimed_count);
 	});
 
@@ -43,7 +46,9 @@ export async function load({ cookies }) {
 	bar = { rewardTotalClaimed, rewardTotalAbb };
 
 	rewardsAndTotalClaimed_response.data?.forEach((record) => {
+		//@ts-ignore
 		rewardTotalClaimed.push(record.points * record.claimed_count);
+		//@ts-ignore
 		rewardTotalAbb.push(record.abbreviation);
 	});
 

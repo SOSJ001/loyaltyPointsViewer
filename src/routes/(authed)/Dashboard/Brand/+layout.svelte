@@ -1,14 +1,19 @@
-<script>
+<script lang="ts">
+	//@ts-nocheck
 	import SideBar from '$lib/components/sideBar.svelte';
-	import { Drawer } from 'flowbite-svelte';
+	import { Drawer, Modal } from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
 	export let data;
+	let rewards: any = data.brand_reward_response.data;
 	let hiddenDrawer = true; // for the hambuger menu
 	let transitionParamsRight = {
 		x: 320,
 		duration: 200,
 		easing: sineIn
 	};
+	let searchModal = false; //search modal
+	let searchValue: string;
+	let searchResult = [];
 </script>
 
 <div class="grid h-screen grid-cols-12 overflow-hidden md:gap-10">
@@ -32,13 +37,20 @@
 			<div class="flex w-full flex-row items-center justify-center border-b">
 				<div class=" w-full">
 					<input
+						bind:value={searchValue}
 						class="w-full border-none bg-transparent focus:border-transparent focus:ring-transparent"
 						type="text"
 						placeholder="search"
 					/>
 				</div>
-				<button title="Search" class="rounded text-xl hover:bg-gray-400 hover:bg-opacity-10"
-					>🔍</button
+				<button
+					on:click={() => {
+						searchModal = true;
+						 searchResult = rewards.filter(search=>search.abbreviation.toLowerCase === searchValue.toLowerCase || search.name.toLowerCase === searchValue)
+						searchValue = '';
+					}}
+					title="Search"
+					class="rounded text-xl hover:bg-gray-400 hover:bg-opacity-10">🔍</button
 				>
 			</div>
 			<!-- brand name and logo  -->
@@ -85,4 +97,35 @@
 			</div>
 		</button>
 	</Drawer>
+	<Modal
+		class="h-full rounded-lg bg-opacity-5 bg-gradient-to-tl from-gray-700 via-slate-600 to-violet-900 text-gray-300"
+		bind:open={searchModal}
+		size="sm"
+		autoclose={false}
+	>
+		<div class="w-[500px] overflow-hidden md:w-full">
+			<!-- table header below -->
+			<div class="grid grid-cols-3 border-b py-5 capitalize text-gray-400">
+				<div>reward name</div>
+				<div>status</div>
+				<div>Points</div>
+			</div>
+			<!-- table body blow -->
+			<div class="">
+				{#if searchResult.length > 0}
+					{#each searchResult as data, i (data.id)}
+						<div
+							class="grid grid-cols-3 items-center border-b px-2 py-3 capitalize hover:bg-gray-600"
+						>
+							<div>{data.name}</div>
+							<div class="text-green-400">Active</div>
+							<div>{data.points} Total</div>
+						</div>
+					{/each}
+				{:else}
+					<span>No Result found</span>
+				{/if}
+			</div>
+		</div>
+	</Modal>
 </div>
