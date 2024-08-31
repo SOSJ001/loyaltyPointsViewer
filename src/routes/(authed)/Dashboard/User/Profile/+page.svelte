@@ -2,8 +2,6 @@
 	import ActionButton from '$lib/components/ActionButton.svelte';
 	import { getServerSession, updateUserDtails } from '$lib/supabase/store';
 	import Spinner from '$lib/components/spinner.svelte';
-	import { invalidateAll } from '$app/navigation';
-	let edit = false;
 	let disabled = true;
 	let toggleMode: string;
 	let spinner = false;
@@ -166,13 +164,6 @@
 											console.log(data);
 											spinner = false;
 											alert('Details Updated ! \n Username will update on next login');
-											const interval = setInterval(() => {
-												invalidateAll();
-											}, 1000);
-
-											return () => {
-												clearInterval(interval);
-											};
 											
 										} else {
 											console.log(error.message);

@@ -15,12 +15,17 @@
 	let rewards: any = data.user_reward_response.data; // get the reward data from the data prop
 	let rewardId: any;
 	let historyModal = false; //modal to see the history
+	let detailModal = false; //reward details modal
 	let claimModal = false; // modal to claim reward
 	let code: any;
 	import ActionButton from '$lib/components/ActionButton.svelte';
 	import { insertIntoUserPoint, updateCode, verifyCode } from '$lib/supabase/store.js';
 	const demoData = [1, 2, 3, 4, 4];
 	let color: any;
+	let rewardName: string;
+	let description: string;
+	let termsAndCondition: string;
+	let point: string;
 </script>
 
 <div class="flex h-full flex-col rounded-lg bg-gray-500 bg-opacity-5 px-3 py-3">
@@ -57,6 +62,7 @@
 						<div class="text-green-400">Active</div>
 						<div>{data.points} Total</div>
 						<div class=" flex flex-col items-start md:flex-row md:gap-x-5">
+							<!-- reward caim button  -->
 							<button
 								on:click={() => {
 									code = '';
@@ -69,7 +75,17 @@
 								}}
 								class="rounded p-1 hover:bg-yellow-400 hover:bg-opacity-50">Claim</button
 							>
-							<button class="rounded p-1 hover:bg-green-500 hover:bg-opacity-50">Details</button>
+							<!-- reward details button  -->
+							<button
+								on:click={() => {
+									detailModal = true;
+									rewardName = data.name;
+									description = data.description;
+									termsAndCondition = data.terms_and_condition;
+									point = data.points;
+								}}
+								class="rounded p-1 hover:bg-green-500 hover:bg-opacity-50">Details</button
+							>
 						</div>
 					</div>
 				{/each}
@@ -77,7 +93,7 @@
 		</div>
 	</div>
 </div>
-<!-- modal below here -->
+<!-- history modal below here -->
 <Modal
 	class="h-full rounded-lg bg-opacity-5 bg-gradient-to-tl from-gray-700 via-slate-600 to-violet-900 text-gray-300"
 	bind:open={historyModal}
@@ -182,5 +198,54 @@
 				</ActionButton>
 			</button>
 		</div>
+	</div>
+</Modal>
+<!-- reward details modal -->
+<Modal
+	class="h-full rounded-lg bg-opacity-5 bg-gradient-to-tl from-gray-700 via-slate-600 to-violet-900 text-gray-300"
+	bind:open={detailModal}
+	size="sm"
+	autoclose={false}
+>
+	<div class="h-full w-full">
+		<form class="flex flex-col space-y-3 text-lg" action="#">
+			<h3 class="mb-4 text-xl font-medium">Reward Details</h3>
+			<div class="space-y-2">
+				<label for="name">Reward Name</label>
+				<input
+					disabled
+					bind:value={rewardName}
+					required
+					id="name"
+					type="text"
+					class="w-full rounded-md border-2 border-gray-300 bg-transparent p-2 focus:border-gray-300 focus:ring-gray-300"
+				/>
+			</div>
+			<div class="space-y-2">
+				<label for="description">Reward Description</label>
+				<textarea
+					disabled
+					bind:value={description}
+					required
+					id="description"
+					class="w-full rounded-md border-2 border-gray-300 bg-transparent p-2 focus:border-gray-300 focus:ring-gray-300"
+				/>
+			</div>
+			<div class="space-y-2">
+				<label for="terms">Reward Terms and Condition</label>
+				<textarea
+					disabled
+					bind:value={termsAndCondition}
+					required
+					id="terms"
+					class="w-full rounded-md border-2 border-gray-300 bg-transparent p-2 focus:border-gray-300 focus:ring-gray-300"
+				/>
+			</div>
+			<div class="flex flex-row items-center gap-x-10" title="Choose color for display on chart">
+				<div class="space-x-2">
+					<span>Assigned Point:</span> <span>{point}</span>
+				</div>
+			</div>
+		</form>
 	</div>
 </Modal>
