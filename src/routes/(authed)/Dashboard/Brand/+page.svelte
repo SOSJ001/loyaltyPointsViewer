@@ -2,9 +2,9 @@
 	//@ts-nocheck
 	import { getClientSession } from '$lib/supabase/store';
 	import { Chart } from 'flowbite-svelte';
-    import RecentlyClaimed from "$lib/components/recentlyClaimed.svelte"
-import { getServerSession } from '$lib/supabase/store.js';
-export let data
+	import RecentlyClaimed from '$lib/components/recentlyClaimedBrandView.svelte';
+	import { getServerSession } from '$lib/supabase/store.js';
+	export let data;
 	const options = {
 		series: [
 			{
@@ -21,7 +21,7 @@ export let data
 			width: '',
 			height: 230,
 			toolbar: {
-				show: false,
+				show: false
 			}
 		},
 		fill: {
@@ -48,7 +48,7 @@ export let data
 		tooltip: {
 			shared: true,
 			intersect: false,
-            theme: "dark",
+			theme: 'dark',
 			formatter: function (value: string) {
 				return value;
 			}
@@ -91,178 +91,192 @@ export let data
 			}
 		}
 	};
-     const donut_options = {
-    series: data.donut.rewardCount,
-    colors: ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694'],
-    chart: {
-      height: 250,
-      width: '100%',
-      type: 'donut'
-    },
-    stroke: {
-      colors: ['transparent'],
-      lineCap: ''
-    },
-    plotOptions: {
-      pie: {
-        donut: {
-          labels: {
-            show: false,
-            name: {
-              show: true,
-              fontFamily: '',
-              offsetY: 20
-            },
-            total: {
-              showAlways: true,
-              show: true,
-              label: 'Users With Most Point',
-              fontFamily: '',
-              formatter: function (w) {
-                const sum = w.globals.seriesTotals.reduce((a, b) => {
-                  return a + b;
-                }, 0);
-                return `${sum}k`;
-              }
-            },
-            value: {
-              show: true,
-              fontFamily: 'Inter, sans-serif',
-              offsetY: -20,
-              formatter: function (value) {
-                return value + 'k';
-              }
-            }
-          },
-          size: '30%'
-        }
-      }
-    },
-    grid: {
-      padding: {
-        top: -2
-      }
-    },
-    labels: data.donut.rewardAbb,
-    dataLabels: {
-      enabled: false
-    },
-    legend: {
-      position: 'bottom',
-      fontFamily: 'Inter, sans-serif',
-       labels: {
-          colors: "gray",
-          useSeriesColors: false
-      },
-    },
-    yaxis: {
-      labels: {
-        formatter: function (value) {
-          return value + ' Claimed';
-        }
-      }
-    },
-    xaxis: {
-      labels: {
-        formatter: function (value) {
-          return value + 'k';
-        }
-      },
-      axisTicks: {
-        show: false
-      },
-      axisBorder: {
-        show: false
-      }
-    }
-  };
- const radial_options =  {
-    series: [90, 85, 70],
-    colors: ['#1C64F2', '#16BDCA', '#FDBA8C'],
-    chart: {
-      height: '280px',
-      width: '100%',
-      type: 'radialBar',
-      sparkline: {
-        enabled: true
-      }
-    },
-    plotOptions: {
-      radialBar: {
-        track: {
-          background: '#E5E7EB'
-        },
-        dataLabels: {
-          show: false
-        },
-        hollow: {
-          margin: 0,
-          size: '32%'
-        }
-      }
-    },
-    grid: {
-      show: false,
-      strokeDashArray: 4,
-      padding: {
-        left: 2,
-        right: 2,
-        top: -23,
-        bottom: -20
-      }
-    },
-    labels: ['Done', 'In progress', 'To do'],
-    legend: {
-      show: true,
-      position: 'bottom',
-      fontFamily: 'Inter, sans-serif',
-      labels: {
-          colors: "gray",
-          useSeriesColors: false
-      },
-    },
-    tooltip: {
-      enabled: true,
-      x: {
-        show: false
-      }
-    },
-    yaxis: {
-      show: false,
-      labels: {
-        formatter: function (value) {
-          return value + '%';
-        }
-      }
-    }
-  };
+	const donut_options = {
+		series: data.donut.rewardCount,
+		colors: ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694'],
+		chart: {
+			height: 250,
+			width: '100%',
+			type: 'donut'
+		},
+		stroke: {
+			colors: ['transparent'],
+			lineCap: ''
+		},
+		plotOptions: {
+			pie: {
+				donut: {
+					labels: {
+						show: false,
+						name: {
+							show: true,
+							fontFamily: '',
+							offsetY: 20
+						},
+						total: {
+							showAlways: true,
+							show: true,
+							label: 'Users With Most Point',
+							fontFamily: '',
+							formatter: function (w) {
+								const sum = w.globals.seriesTotals.reduce((a, b) => {
+									return a + b;
+								}, 0);
+								return `${sum}k`;
+							}
+						},
+						value: {
+							show: true,
+							fontFamily: 'Inter, sans-serif',
+							offsetY: -20,
+							formatter: function (value) {
+								return value + 'k';
+							}
+						}
+					},
+					size: '30%'
+				}
+			}
+		},
+		grid: {
+			padding: {
+				top: -2
+			}
+		},
+		labels: data.donut.rewardAbb,
+		dataLabels: {
+			enabled: false
+		},
+		legend: {
+			position: 'bottom',
+			fontFamily: 'Inter, sans-serif',
+			labels: {
+				colors: 'gray',
+				useSeriesColors: false
+			}
+		},
+		yaxis: {
+			labels: {
+				formatter: function (value) {
+					return value + ' Claimed';
+				}
+			}
+		},
+		xaxis: {
+			labels: {
+				formatter: function (value) {
+					return value + 'k';
+				}
+			},
+			axisTicks: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			}
+		}
+	};
+	const radial_options = {
+		series: [90, 85, 70],
+		colors: ['#1C64F2', '#16BDCA', '#FDBA8C'],
+		chart: {
+			height: '280px',
+			width: '100%',
+			type: 'radialBar',
+			sparkline: {
+				enabled: true
+			}
+		},
+		plotOptions: {
+			radialBar: {
+				track: {
+					background: '#E5E7EB'
+				},
+				dataLabels: {
+					show: false
+				},
+				hollow: {
+					margin: 0,
+					size: '32%'
+				}
+			}
+		},
+		grid: {
+			show: false,
+			strokeDashArray: 4,
+			padding: {
+				left: 2,
+				right: 2,
+				top: -23,
+				bottom: -20
+			}
+		},
+		labels: ['Done', 'In progress', 'To do'],
+		legend: {
+			show: true,
+			position: 'bottom',
+			fontFamily: 'Inter, sans-serif',
+			labels: {
+				colors: 'gray',
+				useSeriesColors: false
+			}
+		},
+		tooltip: {
+			enabled: true,
+			x: {
+				show: false
+			}
+		},
+		yaxis: {
+			show: false,
+			labels: {
+				formatter: function (value) {
+					return value + '%';
+				}
+			}
+		}
+	};
 
 	// getClientSession().then((RESPONSE) => {
 	// 	console.log('getting session', RESPONSE);
 	// });
 </script>
+
 <!-- this is a grid that is divided into 2 left and right col  -->
 <div class="grid h-full grid-cols-12 gap-3 overflow-y-auto">
-    <!-- left col below  -->
-	<div class="order-2 col-span-12 md:col-span-6 flex h-full flex-col gap-3">
-		<div class=" rounded-lg bg-gray-500 bg-opacity-5 p-2  shadow-lg text-center">
-            <div>Rewards & Points Claimed</div>
-            <Chart class="" {options} />
+	<!-- left col below  -->
+	<div class="order-2 col-span-12 flex h-full flex-col gap-3 md:col-span-6">
+		<div class=" rounded-lg bg-gray-500 bg-opacity-5 p-2 text-center shadow-lg">
+			<div>Rewards & Points Claimed</div>
+			<Chart class="" {options} />
+		</div>
+		<div
+			class=" h-full overflow-y-auto rounded-lg bg-gray-500 bg-opacity-5 p-2 text-center shadow-lg"
+		>
+			<span>Recently claimed Customers</span>
+			<RecentlyClaimed>
+        <div slot="claimData" class="w-full">
+					{#each data.brand_overview_response as row, i}
+          <div  class="mt-2 hover:bg-gray-600 grid grid-cols-3 gap-y-2 overflow-y-auto">
+            <div class="bg-gray-500 bg-opacity-10 ">user00{i+1}</div>
+						<div class="bg-gray-500 bg-opacity-10 ">{row.name}</div>
+						<div class="bg-gray-500 bg-opacity-10">{row.point_balance}</div>
+          </div>
+					{/each}
         </div>
-		<div class=" h-full rounded-lg bg-gray-500 bg-opacity-5 p-2 shadow-lg text-center overflow-y-auto">
-            <span>Recently claimed Customers</span>
-            <RecentlyClaimed/>
-        </div>
+				
+			</RecentlyClaimed>
+		</div>
 	</div>
-    <!-- right col below  -->
-	<div class="col-span-12 md:col-span-6 flex h-full flex-col gap-3">
-		<div class=" rounded-lg bg-gray-500 bg-opacity-5 p-2 shadow-lg text-center">
-            <div>Top 5 Claimed Rewards</div>
-            <Chart class="" options={donut_options} />
-        </div>
-		<div class=" rounded-lg bg-gray-500 bg-opacity-5 p-2 shadow-lg h-full text-center">
-            <div class="">Top 3 Customers with most point</div>
-            <Chart class="" options={radial_options} />
-        </div>
+	<!-- right col below  -->
+	<div class="col-span-12 flex h-full flex-col gap-3 md:col-span-6">
+		<div class=" rounded-lg bg-gray-500 bg-opacity-5 p-2 text-center shadow-lg">
+			<div>Top 5 Claimed Rewards</div>
+			<Chart class="" options={donut_options} />
+		</div>
+		<div class=" h-full rounded-lg bg-gray-500 bg-opacity-5 p-2 text-center shadow-lg">
+			<div class="">Top 3 Customers with most point</div>
+			<Chart class="" options={radial_options} />
+		</div>
 	</div>
 </div>

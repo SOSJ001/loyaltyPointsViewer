@@ -182,6 +182,12 @@ export async function select_userOverviewById(user_id: any) {
 	return response;
 }
 
+//select all from the overview where brand id
+export async function select_brandOverviewById(user_id: any) {
+	let response = await supabase.from('user_overview_view').select('*').eq('brand_id', user_id);
+	return response;
+}
+
 
 //get the claim count
 export async function claimCount(id: string) {
