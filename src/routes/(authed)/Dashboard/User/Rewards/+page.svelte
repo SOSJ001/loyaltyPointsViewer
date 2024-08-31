@@ -3,6 +3,7 @@
 	import { getServerSession, updateClaimPoints } from '$lib/supabase/store.js';
 	import Spinner from '$lib/components/spinner.svelte';
 	export let data;
+	let history:[] = data.history as []
 	let spinner = false;
 	let user_id: any;
 	getServerSession().then((data) => {
@@ -109,11 +110,11 @@
 		</div>
 		<!-- table body blow -->
 		<div class="overflow-y-auto">
-			{#each demoData as data}
+			{#each history as row}
 				<div class="grid grid-cols-3 items-center border-b px-2 py-3 capitalize hover:bg-gray-600">
-					<div>Super Advert</div>
-					<div class="text-green-400">Claimed</div>
-					<div>0</div>
+					<div>{row.name}</div>
+					<div class="text-green-400">{row.status}</div>
+					<div>{row.point_balance}</div>
 				</div>
 			{/each}
 		</div>

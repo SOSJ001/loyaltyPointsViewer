@@ -95,7 +95,7 @@
 		series: data.barChart.points,
 		colors: ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694'],
 		chart: {
-			height: 350,
+			height: 320,
 			width: '100%',
 			type: 'donut'
 		},

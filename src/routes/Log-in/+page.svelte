@@ -47,7 +47,7 @@
 					'Content-Type': 'application/json'
 				}
 			});
-			spinner = false;
+			// spinner = false;
 			goto(`/Dashboard/${USER_ROLE}`);
 		}
 	};
@@ -88,7 +88,7 @@
 		<div class="w-full text-center underline">
 			<a href="/Log-in">Oh no! I forgot my password</a>
 		</div>
-		<button on:click={log_in_function}>
+		<button on:click|stopPropagation ={log_in_function}>
 			<ActionButton hoverBgColor="gray-900" bgColor="gray-300">
 				<span slot="text"
 					>Log in now {#if spinner}
