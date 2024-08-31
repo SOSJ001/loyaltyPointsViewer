@@ -1,4 +1,9 @@
-import { claimCount, loadRewards, rewardsAndTotalClaimed, select_brandOverviewById } from '$lib/supabase/store';
+import {
+	claimCount,
+	loadRewards,
+	rewardsAndTotalClaimed,
+	select_brandOverviewById
+} from '$lib/supabase/store';
 
 // load the rewards to the table
 export async function load({ cookies }) {
@@ -34,16 +39,29 @@ export async function load({ cookies }) {
 	// logic to get the total points claimed for each reward
 	let bar = {};
 	let rewardTotalClaimed: [] = []; //holds the total claimed
-    let rewardTotalAbb: [] = []; //holds the reward abbreviation
-    bar = { rewardTotalClaimed, rewardTotalAbb };
+	let rewardTotalAbb: [] = []; //holds the reward abbreviation
+	bar = { rewardTotalClaimed, rewardTotalAbb };
 
-    rewardsAndTotalClaimed_response.data?.forEach((record) => {
-        rewardTotalClaimed.push(record.points * record.claimed_count);
-        rewardTotalAbb.push(record.abbreviation);
-    })
+	rewardsAndTotalClaimed_response.data?.forEach((record) => {
+		rewardTotalClaimed.push(record.points * record.claimed_count);
+		rewardTotalAbb.push(record.abbreviation);
+	});
 
-    //return just 5 of the recent records
-    const brand_overview_response = brandOverview_response.data?.slice(0,5)
+	//return just 5 of the recent records
+	const brand_overview_response = brandOverview_response.data?.slice(0, 5);
 
-	return { brand_reward_response, donut, bar, brand_overview_response };
+	// total rewards listed
+	let totalRewards: number = 0;
+
+	if (brand_reward_response.data?.length !== undefined) {
+		if (brand_reward_response.data?.length > 0) {
+			totalRewards = brand_reward_response.data?.length;
+		} else {
+			totalRewards = 0;
+		}
+	} else {
+		totalRewards = 0;
+	}
+
+	return { brand_reward_response, donut, bar, brand_overview_response, totalRewards };
 }

@@ -250,33 +250,42 @@
 			<div>Rewards & Points Claimed</div>
 			<Chart class="" {options} />
 		</div>
+		<!-- recently claimed customers  -->
 		<div
 			class=" h-full overflow-y-auto rounded-lg bg-gray-500 bg-opacity-5 p-2 text-center shadow-lg"
 		>
 			<span>Recently claimed Customers</span>
 			<RecentlyClaimed>
-        <div slot="claimData" class="w-full">
+				<div slot="claimData" class="w-full">
 					{#each data.brand_overview_response as row, i}
-          <div  class="mt-2 hover:bg-gray-600 grid grid-cols-3 gap-y-2 overflow-y-auto">
-            <div class="bg-gray-500 bg-opacity-10 ">user00{i+1}</div>
-						<div class="bg-gray-500 bg-opacity-10 ">{row.name}</div>
-						<div class="bg-gray-500 bg-opacity-10">{row.point_balance}</div>
-          </div>
+						<div class="mt-2 grid grid-cols-3 gap-y-2 overflow-y-auto hover:bg-gray-600">
+							<div class="bg-gray-500 bg-opacity-10">user00{i + 1}</div>
+							<div class="bg-gray-500 bg-opacity-10">{row.name}</div>
+							<div class="bg-gray-500 bg-opacity-10">{row.point_balance}</div>
+						</div>
 					{/each}
-        </div>
-				
+				</div>
 			</RecentlyClaimed>
 		</div>
 	</div>
 	<!-- right col below  -->
 	<div class="col-span-12 flex h-full flex-col gap-3 md:col-span-6">
+		<!-- total reward listed  -->
+		<div
+			class=" flex h-full flex-col items-center justify-center rounded-lg bg-gray-500 bg-opacity-5 px-5 py-10 text-center shadow-lg"
+		>
+			<div class="font-mono text-6xl">{data.totalRewards}</div>
+			<div class="text-3xl">Total {#if data.totalRewards >1}
+        Rewards
+        {:else}
+        Reward
+      {/if}</div>
+			<div class="text-3xl">Listed</div>
+		</div>
+		<!-- donut chart  -->
 		<div class=" rounded-lg bg-gray-500 bg-opacity-5 p-2 text-center shadow-lg">
 			<div>Top 5 Claimed Rewards</div>
 			<Chart class="" options={donut_options} />
-		</div>
-		<div class=" h-full rounded-lg bg-gray-500 bg-opacity-5 p-2 text-center shadow-lg">
-			<div class="">Top 3 Customers with most point</div>
-			<Chart class="" options={radial_options} />
 		</div>
 	</div>
 </div>
