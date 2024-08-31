@@ -10,7 +10,7 @@ This project is A Solution to one of Christex Foundation's Engineering Bounty
 
 1. Clone this repository:
    git clone [https://github.com/SOSJ001/loyaltyPointsViewer](https://github.com/SOSJ001/loyaltyPointsViewer)
-2. run npm i 
+2. run npm install
 3. run npm run dev
 
 ##Built with sveltekit
