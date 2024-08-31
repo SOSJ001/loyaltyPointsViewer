@@ -4,13 +4,13 @@
 	import { Chart } from 'flowbite-svelte';
     import RecentlyClaimed from "$lib/components/recentlyClaimed.svelte"
 import { getServerSession } from '$lib/supabase/store.js';
-
+export let data
 	const options = {
 		series: [
 			{
-				name: 'Income',
+				name: 'Points',
 				color: '#31C48D',
-				data: ['1420', '1620', '1820', '1420', '1650', '2120']
+				data: data.bar.rewardTotalClaimed
 			}
 		],
 		chart: {
@@ -64,7 +64,7 @@ import { getServerSession } from '$lib/supabase/store.js';
 					return value;
 				}
 			},
-			categories: ['rewards', 'rewards', 'rewards', 'rewards', 'rewards', 'rewards'],
+			categories: data.bar.rewardTotalAbb,
 			axisTicks: {
 				show: false
 			},
@@ -92,7 +92,7 @@ import { getServerSession } from '$lib/supabase/store.js';
 		}
 	};
      const donut_options = {
-    series: [35.1, 23.5, 2.4, 5.4],
+    series: data.donut.rewardCount,
     colors: ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694'],
     chart: {
       height: 250,
@@ -143,7 +143,7 @@ import { getServerSession } from '$lib/supabase/store.js';
         top: -2
       }
     },
-    labels: ['Direct', 'Sponsor', 'Affiliate', 'Email marketing'],
+    labels: data.donut.rewardAbb,
     dataLabels: {
       enabled: false
     },
@@ -158,7 +158,7 @@ import { getServerSession } from '$lib/supabase/store.js';
     yaxis: {
       labels: {
         formatter: function (value) {
-          return value + 'k';
+          return value + ' Claimed';
         }
       }
     },

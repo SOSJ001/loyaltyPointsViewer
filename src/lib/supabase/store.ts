@@ -97,7 +97,7 @@ export async function updateRewards(
 	abbreviation: string,
 	description: string,
 	termsAndCondition: string,
-	color: string
+	color: string,
 ) {
 	const response = await supabase
 		.from('rewards')
@@ -106,8 +106,18 @@ export async function updateRewards(
 			abbreviation: abbreviation,
 			description: description,
 			terms_and_condition: termsAndCondition,
-			color: color
+			color: color,
+			claimed_count: claimCount
 		})
+		.eq('id', rowId)
+		.select();
+	return response;
+}
+
+export async function updateClaimPoints(rowId: string, claimCount: number) {
+	const response = await supabase
+		.from('rewards')
+		.update({ claimed_count: claimCount + 1 })
 		.eq('id', rowId)
 		.select();
 	return response;
@@ -140,7 +150,12 @@ export async function updateCode(id: number) {
 	return response;
 }
 
-export async function insertIntoUserPoint(user_id: any, brand_id: any, point_balance: number, code_id:number) {
+export async function insertIntoUserPoint(
+	user_id: any,
+	brand_id: any,
+	point_balance: number,
+	code_id: number
+) {
 	const response = await supabase
 		.from('userPoints')
 		.insert([
@@ -156,14 +171,26 @@ export async function insertIntoUserPoint(user_id: any, brand_id: any, point_bal
 }
 
 export async function PointFromUserPointTable(user_id: any) {
-	// select all the points for the user 
-let response = await supabase.from('userPoints').select('point_balance').eq('user_id', user_id);
-  return response
-	
+	// select all the points for the user
+	let response = await supabase.from('userPoints').select('point_balance').eq('user_id', user_id);
+	return response;
 }
 
 // select all from user overView view
 export async function select_userOverviewById(user_id: any) {
-let response = await supabase.from('user_overview_view').select('*').eq('user_id', user_id);
-return response
+	let response = await supabase.from('user_overview_view').select('*').eq('user_id', user_id);
+	return response;
+}
+
+
+//get the claim count
+export async function claimCount(id: string) {
+	let response = await supabase.from('claimcount').select('*').eq('user_id', id);
+	return response;
+}
+
+//get rewards and claim total points
+export async function rewardsAndTotalClaimed(id: string) {
+	let response = await supabase.from('rewardsandclaimedtotalpoints').select('*').eq('user_id', id);
+	return response;
 }

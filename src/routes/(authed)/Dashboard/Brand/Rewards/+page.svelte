@@ -22,7 +22,7 @@
 	let abbreviation: string;
 	let description: string;
 	let termsAndCondition: string;
-	const POINT: number = 5; //each reward has a constant point of 5 FOR NOW
+	let point: number = 5; //each reward has a constant point of 5 FOR NOW
 	let color: string;
 	let formModal = false; //to open the form modal
 	let editModal = false; // to open the edit modal
@@ -39,7 +39,7 @@
 			description,
 			termsAndCondition,
 			color,
-			POINT
+			point
 		);
 		formModal = false; //close the modal
 		if (error === null) {
@@ -134,6 +134,7 @@
 					<div class="text-green-400">Active</div>
 					<div class="">0 Total</div>
 					<div class=" flex flex-col items-start md:flex-row md:items-start md:space-x-5">
+						<!-- edit button  -->
 						<button
 							on:click={() => {
 								editModal = true;
@@ -148,6 +149,7 @@
 							}}
 							class="rounded p-1 hover:bg-yellow-400 hover:bg-opacity-50">Edit</button
 						>
+						<!-- delete button  -->
 						<button
 							on:click={// on click of the delete button update the array
 							() => {
@@ -175,6 +177,7 @@
 								termsAndCondition = data.terms_and_condition;
 								color = data.color;
 								rewardId = data.id
+								point = data.points
 							}}
 							class="rounded p-1 hover:bg-green-500 hover:bg-opacity-50">Details</button
 						>
@@ -234,15 +237,27 @@
 					class="w-full rounded-md border-2 border-gray-300 bg-transparent p-2 focus:border-gray-300 focus:ring-gray-300"
 				/>
 			</div>
-			<div class="space-y-2" title="Choose color for display on chart">
-				<label for="color" class="text-{color}">Choose Reward color </label>
+			<div class="flex flex-col justify-start gap-y-4 md:flex-row items-center gap-x-10" title="Choose color for display on chart">
+				<div class="space-x-2 flex items-start w-full">
+					<label for="color" class="text-{color} text-nowrap">Reward color: </label>
+					<input
+						bind:value={color}
+						required
+						id="color"
+						type="color"
+						class="rounded-md border-2 border-gray-300 bg-transparent focus:border-gray-300 focus:ring-gray-300"
+					/>
+				</div>
+				<div class="space-x-2 flex items-center justify-start w-full">
+					<label for="name" class="text-nowrap">Reward Points</label>
 				<input
-					bind:value={color}
+					bind:value={point}
 					required
-					id="color"
-					type="color"
-					class="rounded-md border-2 border-gray-300 bg-transparent focus:border-gray-300 focus:ring-gray-300"
+					id="name"
+					type="text"
+					class="w-full rounded-md border-2 border-gray-300 bg-transparent p-2 focus:border-gray-300 focus:ring-gray-300"
 				/>
+				</div>
 			</div>
 			<button on:click={insert_into_reward_function} class="w-full">
 				<ActionButton
@@ -397,7 +412,7 @@
 					/>
 				</div>
 				<div class="space-x-2">
-					<span>Assigned Point:</span> <span>5</span>
+					<span>Assigned Point:</span> <span>{point}</span>
 				</div>
 			</div>
 			<button on:click={()=>{

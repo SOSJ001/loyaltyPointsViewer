@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { Modal } from 'flowbite-svelte';
-	import { getServerSession } from '$lib/supabase/store.js';
-	import Spinner from "$lib/components/spinner.svelte"
+	import { getServerSession, updateClaimPoints } from '$lib/supabase/store.js';
+	import Spinner from '$lib/components/spinner.svelte';
 	export let data;
-	let spinner = false
+	let spinner = false;
 	let user_id: any;
 	getServerSession().then((data) => {
 		// get the user id from the server and set it
 		user_id = data.user?.id;
 	});
+	let claimCount: number;
 	let brand_id: any;
 	let claimedPoint: number;
 	let rewards: any = data.user_reward_response.data; // get the reward data from the data prop
@@ -58,12 +59,13 @@
 						<div class=" flex flex-col items-start md:flex-row md:gap-x-5">
 							<button
 								on:click={() => {
-									code = ''
-									spinner = false
+									code = '';
+									spinner = false;
 									claimModal = true;
 									rewardId = data.id;
 									brand_id = data.user_id;
 									claimedPoint = data.points;
+									claimCount = data.claimed_count;
 								}}
 								class="rounded p-1 hover:bg-yellow-400 hover:bg-opacity-50">Claim</button
 							>
@@ -122,7 +124,7 @@
 			/>
 			<button
 				on:click={() => {
-					spinner = true
+					spinner = true;
 					verifyCode(rewardId, code).then(({ data, error }) => {
 						if (error === null) {
 							// if there is no error do this
@@ -131,16 +133,23 @@
 								//update the code table status to claimed
 								updateCode(data[0].id).then((codetableUpdateResp) => {
 									if (codetableUpdateResp.error === null) {
-										//insert into the user point
+										//insert into the user point table
 										insertIntoUserPoint(
 											user_id,
 											brand_id,
 											claimedPoint,
 											codetableUpdateResp.data[0].id
 										).then((userpointTableResp) => {
-											// success to do here
-											alert('You have claim 5 points');
-											spinner = false
+											//update the claimed points
+											if (userpointTableResp.error === null) {
+												updateClaimPoints(rewardId, claimCount).then((claimPointCountResp) => {
+													if (claimPointCountResp.error === null) {
+														// success to do here
+														alert(`You have claim ${claimedPoint} points`);
+														spinner = false;
+													}
+												});
+											}
 										});
 									} else {
 										console.log('This is the error', codetableUpdateResp.error.message);
@@ -148,13 +157,13 @@
 								});
 							} else {
 								alert('Invalid Code');
-								spinner = false
-								code = ''
+								spinner = false;
+								code = '';
 							}
 						} else {
-							alert('Poor Connection Connection \n Please Retry !')
-							spinner = false
-							code = ""
+							alert('Poor Connection Connection \n Please Retry !');
+							spinner = false;
+							code = '';
 						}
 					});
 				}}
@@ -167,7 +176,8 @@
 					hoverTextColor="gray-700 hover:font-bold"
 				>
 					<svelte:fragment slot="text">
-						Claim Reward <span class="text-lg">✅</span> {#if spinner}<span><Spinner/></span>{/if}
+						Claim Reward <span class="text-lg">✅</span>
+						{#if spinner}<span><Spinner /></span>{/if}
 					</svelte:fragment>
 				</ActionButton>
 			</button>

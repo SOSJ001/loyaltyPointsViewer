@@ -4,12 +4,11 @@
 	import { Chart } from 'flowbite-svelte';
 	import RecentlyClaimed from '$lib/components/recentlyClaimed.svelte';
 	export let data;
-	console.log(data.user_View_response.data);
 	//  barchart below
 	const options = {
 		series: [
 			{
-				name: 'Income',
+				name: 'Points',
 				color: '#31C48D',
 				data: data.barChart.points
 			}

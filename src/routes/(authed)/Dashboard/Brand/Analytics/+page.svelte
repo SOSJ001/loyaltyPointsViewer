@@ -98,7 +98,7 @@
                 </ActionButton>
             </button> -->
 	</div>
-	<div class="row-span-11">
+	<div class="row-span-11 overflow-hidden">
 		<Chart {options} />
 	</div>
 </div>
