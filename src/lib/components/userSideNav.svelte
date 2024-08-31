@@ -60,8 +60,18 @@
 			<div
 				class="flex h-[200px] w-4/5 flex-col items-center justify-center rounded-lg bg-gray-400 font-bold text-violet-900"
 			>
-				<span class="text-lg capitalize"> made with love </span>
-				<span class="text-5xl"> 💖 </span>
+				<span class="hidden text-lg capitalize md:inline"> made with love </span>
+				<span class="hidden text-5xl md:inline"> 💖 </span>
+				<!-- brand name and logo  -->
+				<div class="w-full md:hidden">
+					<div class="flex flex-col items-center justify-center space-x-3">
+						<slot name="userName"><span>user Name</span></slot>
+						<!-- brand logo -->
+						<div title="Avatar/logo" class="py-5 text-xl">
+							<span class="rounded-full bg-gray-300 p-3 text-5xl">👤</span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -77,7 +77,7 @@
 				<div class="absolute top-6 right-7 flex w-full items-center justify-end">
 					<button on:click={() => (hiddenDrawer = true)} class="text-end text-md">❌</button>
 				</div>
-				<UserSideBar />
+				<UserSideBar><span slot="userName">{data.user_name}</span></UserSideBar>
 			</div>
 			
 		</button>

@@ -2,7 +2,7 @@
 	import SideBar from '$lib/components/sideBar.svelte';
 	import { Drawer } from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
-export let data
+	export let data;
 	let hiddenDrawer = true; // for the hambuger menu
 	let transitionParamsRight = {
 		x: 320,
@@ -43,7 +43,7 @@ export let data
 			</div>
 			<!-- brand name and logo  -->
 			<div class="hidden w-full md:block">
-				<div class="flex justify-end items-center space-x-3">
+				<div class="flex items-center justify-end space-x-3">
 					<span>{data.user_name}</span>
 					<!-- brand logo -->
 					<div title="Avatar/logo" class="py-5 text-xl">
