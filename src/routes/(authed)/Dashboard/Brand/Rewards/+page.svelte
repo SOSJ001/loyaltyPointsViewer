@@ -120,19 +120,17 @@
 	<div class="w-full overflow-x-auto">
 		<div class="w-[500px] overflow-hidden md:w-full">
 			<!-- table header below -->
-			<div class="grid grid-cols-4 border-b py-5 capitalize text-gray-400">
+			<div class="grid grid-cols-3 border-b py-5 capitalize text-gray-400">
 				<div title="Reward Abbreviation">reward abb.</div>
 				<div>status</div>
-				<div>Claimed</div>
 				<div>actions</div>
 			</div>
 			<!-- table body blow -->
 			<!-- {#await }{:then } {/await} -->
 			{#each rewards as data, i (data.id)}
-				<div class="grid grid-cols-4 items-center border-b px-2 py-3 capitalize hover:bg-gray-600">
+				<div class="grid grid-cols-3 items-center border-b px-2 py-3 capitalize hover:bg-gray-600">
 					<div class="">{data.abbreviation}</div>
 					<div class="text-green-400">Active</div>
-					<div class="">0 Total</div>
 					<div class=" flex flex-col items-start md:flex-row md:items-start md:space-x-5">
 						<!-- edit button  -->
 						<button
