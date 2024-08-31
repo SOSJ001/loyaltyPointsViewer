@@ -14,4 +14,4 @@ This project is A Solution to one of Christex Foundation's Engineering Bounty
 3. run npm run dev
 
 ##Built with sveltekit
-#If u get fetch failed error contact the dev to reboot the project
+# If u get fetch failed error contact the dev to reboot the project
