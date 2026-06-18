@@ -1,4 +1,3 @@
-import { loadRewardsForUser } from '$lib/supabase/store';
 
 // load the rewards to the table
 export async function load({ cookies, url, parent }) {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ActionButton from '$lib/components/ActionButton.svelte';
-	import { getServerSession, updateUserDtails } from '$lib/supabase/store';
+	import { getServerSession, updateUserDtails } from '$lib/data/store';
 	import Spinner from '$lib/components/spinner.svelte';
 	let disabled = true;
 	let toggleMode: string;

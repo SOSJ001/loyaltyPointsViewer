@@ -1,7 +1,7 @@
 <script lang="ts">
 	//@ts-nocheck
 	import { Modal } from 'flowbite-svelte';
-	import { getServerSession, updateClaimPoints } from '$lib/supabase/store.js';
+	import { getServerSession, updateClaimPoints } from '$lib/data/store';
 	import Spinner from '$lib/components/spinner.svelte';
 	export let data;
 	let history:[] = data.history as []
@@ -22,7 +22,7 @@
 	let claimModal = false; // modal to claim reward
 	let code: any;
 	import ActionButton from '$lib/components/ActionButton.svelte';
-	import { insertIntoUserPoint, updateCode, verifyCode } from '$lib/supabase/store.js';
+	import { insertIntoUserPoint, updateCode, verifyCode } from '$lib/data/store';
 	const demoData = [1, 2, 3, 4, 4];
 	let color: any;
 	let rewardName: string;

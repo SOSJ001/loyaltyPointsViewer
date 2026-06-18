@@ -1,6 +1,5 @@
 <script lang="ts">
 	//@ts-nocheck
-	import { getClientSession } from '$lib/supabase/store';
 	import { Chart } from 'flowbite-svelte';
 	import RecentlyClaimed from '$lib/components/recentlyClaimed.svelte';
 	export let data;

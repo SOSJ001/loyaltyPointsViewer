@@ -1,9 +1,7 @@
 <script lang="ts">
 	//@ts-nocheck
-	import { getClientSession } from '$lib/supabase/store';
 	import { Chart } from 'flowbite-svelte';
 	import RecentlyClaimed from '$lib/components/recentlyClaimedBrandView.svelte';
-	import { getServerSession } from '$lib/supabase/store.js';
 	export let data;
 	const options = {
 		series: [

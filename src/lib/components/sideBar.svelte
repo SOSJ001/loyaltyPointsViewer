@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { logOut } from '$lib/supabase/store';
+	import { logOut } from '$lib/data/store';
 	import NavButton from './NavButton.svelte';
 	let routes = [
 		{ icon: '👀', name: 'Overview', url: '/Dashboard/Brand' },

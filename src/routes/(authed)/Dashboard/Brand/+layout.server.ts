@@ -4,7 +4,7 @@ import {
 	loadRewards,
 	rewardsAndTotalClaimed,
 	select_brandOverviewById
-} from '$lib/supabase/store';
+} from '$lib/data/store';
 
 // load the rewards to the table
 export async function load({ cookies }) {
@@ -29,8 +29,8 @@ export async function load({ cookies }) {
 	const top5 = array?.slice(0, 5);
 	//arranging the donut chart variable
 	let donut = {};
-	let rewardAbb: [] = [];
-	let rewardCount: [] = [];
+	let rewardAbb: string[] = [];
+	let rewardCount: number[] = [];
 	donut = { rewardAbb, rewardCount };
 	top5?.forEach((reward) => {
 		//@ts-ignore
@@ -41,8 +41,8 @@ export async function load({ cookies }) {
 
 	// logic to get the total points claimed for each reward
 	let bar = {};
-	let rewardTotalClaimed: [] = []; //holds the total claimed
-	let rewardTotalAbb: [] = []; //holds the reward abbreviation
+	let rewardTotalClaimed: number[] = [];
+	let rewardTotalAbb: string[] = [];
 	bar = { rewardTotalClaimed, rewardTotalAbb };
 
 	rewardsAndTotalClaimed_response.data?.forEach((record) => {

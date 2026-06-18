@@ -1,4 +1,4 @@
-import { PointFromUserPointTable, select_userOverviewById } from '$lib/supabase/store';
+import { PointFromUserPointTable, select_userOverviewById } from '$lib/data/store';
 
 export async function load({ cookies }) {
 	// get the user id from the cookie
@@ -17,8 +17,8 @@ export async function load({ cookies }) {
 	});
 
 	// getting the date and the points for line chart
-	let created: [] = [];
-	let points: [] = [];
+	let created: string[] = [];
+	let points: number[] = [];
 	let lineChart = { created, points };
 	user_View_response.data?.forEach((record) => {
 		const dateString = record.created_at;

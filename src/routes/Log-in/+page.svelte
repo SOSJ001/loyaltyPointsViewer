@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ActionButton from '$lib/components/ActionButton.svelte';
-	import { log_In } from '$lib/supabase/store';
+	import { log_In } from '$lib/data/store';
 	import Spinner from '$lib/components/spinner.svelte';
 	import { goto } from '$app/navigation';
 	let spinner = false;
@@ -31,7 +31,7 @@
 			error1Message = error.message;
 			spinner = false;
 			return;
-		} else if (data.session !== null) {
+		} else if (data?.session) {
 			// if login is a success
 			// get the user id and user role
 			// set the cookie

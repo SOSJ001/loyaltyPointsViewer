@@ -2,7 +2,7 @@
 	//@ts-nocheck
 	import { Chart } from 'flowbite-svelte';
 	import ActionButton from '$lib/components/ActionButton.svelte';
-	import { getServerSession } from '$lib/supabase/store.js';
+	import { getServerSession } from '$lib/data/store';
 	export let data
 	let userPoint = data.totalPoint //getting the point from the +page.server.ts
 	let user_id: any

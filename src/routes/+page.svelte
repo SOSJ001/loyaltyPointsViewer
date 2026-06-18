@@ -2,7 +2,7 @@
 	import ActionButton from '$lib/components/ActionButton.svelte';
 	import { goto } from '$app/navigation';
 	import Spinner from '$lib/components/spinner.svelte';
-	import { createAccount, getClientSession } from '$lib/supabase/store';
+	import { createAccount, getClientSession } from '$lib/data/store';
 	let userType: string = 'User'; //variable to keep track of radio button
 	let email: string;
 	let password: string;

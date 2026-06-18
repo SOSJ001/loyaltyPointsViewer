@@ -1,4 +1,4 @@
-import { rewardsAndTotalClaimed } from "$lib/supabase/store";
+import { rewardsAndTotalClaimed } from '$lib/data/store';
 
 export async function load({ cookies }) {
 	let COOKIE_VARIABLE: any = cookies.get('user_data');
@@ -8,8 +8,8 @@ export async function load({ cookies }) {
 	]);
 	// logic to get the total points claimed for each reward
 	let bar = {};
-	let rewardTotalClaimed: [] = []; //holds the total claimed
-	let rewardTotalAbb: [] = []; //holds the reward abbreviation
+	let rewardTotalClaimed: number[] = [];
+	let rewardTotalAbb: string[] = [];
 	bar = { rewardTotalClaimed, rewardTotalAbb };
 
 	rewardsAndTotalClaimed_response.data?.forEach((record) => {

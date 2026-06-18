@@ -1,4 +1,4 @@
-import { loadRewardsForUser, PointFromUserPointTable, select_userOverviewById } from "$lib/supabase/store";
+import { loadRewardsForUser, PointFromUserPointTable, select_userOverviewById } from '$lib/data/store';
 
 export async function load({ cookies }) {
     // get the user id from the cookie 
@@ -14,8 +14,8 @@ export async function load({ cookies }) {
   });
   
   // getting the rewards and the points for bar chart
-  let rewards: [] = [];
-	let points:[] = [];
+  let rewards: string[] = [];
+	let points: number[] = [];
 	let barChart = { rewards, points };
   user_View_response.data?.forEach((record) => {
     //@ts-ignore

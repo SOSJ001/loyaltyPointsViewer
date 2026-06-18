@@ -7,7 +7,7 @@
 		insert_Into_Rewards,
 		insertIntoCode,
 		updateRewards
-	} from '$lib/supabase/store';
+	} from '$lib/data/store';
 	import { generateRandomChars } from '$lib/generalStore.js';
 	export let data;
 	let rewards: any = data.brand_reward_response.data; // get the reward data from the data prop
@@ -421,7 +421,7 @@
 						// on successful Storage of the code 
 						alert(`Code is valid for one use only \n \n Share the claim code below: \n ${data[0].claim_code}`)
 					}else{
-						console.log( "error", error.message)
+						console.log('error', error)
 					}
 				}) // keep the claim code
 				
